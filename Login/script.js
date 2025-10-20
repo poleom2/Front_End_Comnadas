@@ -38,7 +38,7 @@ function loginAlert(){
     const password = document.querySelector("#password");
     console.log(email.value);
     console.log(password.value);    
-    if(email.value == 'Miguel' && password.value == '1234')
+    if(email.value == 'Miguel' && password.value == '1234' || email.value == 'Gabriel' && password.value == '1234')
         {
        
         toastify("sucesso","Login realizado com sucesso!");
