@@ -13,21 +13,42 @@
 
 function Login() {
     const loginButton = document.querySelector('form');
-    const nome = document.querySelector("email");
-        const senha = document.querySelector("password");
-        const modal = document.querySelector(".Modal");
-    loginButton.addEventListener('submit',async (e) => {
-        
+       
+    loginButton.addEventListener('submit',async (e) => {  
         e.preventDefault()
-        if(nome =='Miguel' && senha == '1234'){
-            window.location.href = '../Home/index.html';
-
-        }else{
-             modal.style.display = "block";
-             
-        }
-        console.log('Login button clicked');
+        loginAlert()
     });
    
 }
 Login();
+function toastify(tipo,message){
+     document.body.insertAdjacentHTML("beforeend", `
+     <div class="toastify ${tipo}">
+            <p>${message}</p
+    >
+     </div>
+     `);
+     const toastify = document.querySelector('.toastify');
+     setTimeout(() => {
+        toastify.remove();
+     },3000);
+}
+function loginAlert(){
+   const email = document.querySelector("#email");
+    const password = document.querySelector("#password");
+    console.log(email.value);
+    console.log(password.value);    
+    if(email.value == 'Miguel' && password.value == '1234')
+        {
+       
+        toastify("sucesso","Login realizado com sucesso!");
+        setTimeout(() => {
+        location.href = '../Home/index.html';
+        }, 3000);
+     }
+    else
+        {
+            toastify("erro","Email ou senha incorretos!")
+       
+     }
+}
