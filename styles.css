@@ -1,0 +1,66 @@
+  
+  * {padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none; 
+}
+.login_body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.toastify {
+    position: absolute;
+    top: -100px;
+    left: 40%;
+    padding: 24px;
+    background: #ff0000;
+    animation: open 5s ease;
+    /* opacity: 0; */
+}
+.sucesso {
+    background-color: rgb(28, 21, 166);
+}
+.erro {
+    background-color: red;
+}
+.toastify p {
+    color: #fff;
+}
+@keyframes open {
+    0%{
+        top:  -100px;
+    }
+   
+    50%{
+        top: 0;
+    }
+    100%{
+        top: -100px;
+    }
+}
+form{
+  display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 300px;
+    align-items: center;
+    padding: 30px;
+    border: 1px solid #3500b1;
+    align-items: center;
+
+
+
+}
+.input-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 4px;
+    gap: 8px;
+}
+form:hover{
+    box-shadow: 0 0 15px #3500b1;
+    transition: 0.3s;
+}
