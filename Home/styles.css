@@ -27,13 +27,28 @@ main {
     gap: 25px;
 }
 
+<<<<<<< HEAD
 .botoes {
+=======
+#botoes {
+>>>>>>> bf17c7da233f112f7c5ca5a8391a358c73700e54
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 
 }
 
+<<<<<<< HEAD
+=======
+#button-center {
+    grid-column: 1 / -1;
+    /* Faz o botão ocupar todas as colunas */
+    display: flex;
+    justify-content: center;
+    /* Centraliza o botão horizontalmente */
+}
+
+>>>>>>> bf17c7da233f112f7c5ca5a8391a358c73700e54
 .Cardapio {
     background-color: #C9A03F;
     border-radius: 12px;
