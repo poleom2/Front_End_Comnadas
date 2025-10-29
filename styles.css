@@ -74,3 +74,16 @@
       box-shadow: 0 0 15px #3500b1;
       transition: 0.3s;
   }
+
+  #botom {
+      display: flex;
+      background-color: #3500b1;
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      gap: 8px;
+
+
+  }
