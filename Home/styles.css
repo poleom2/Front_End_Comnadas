@@ -2,7 +2,6 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-
 }
 
 main {
@@ -11,16 +10,27 @@ main {
     height: 100vh;
     justify-content: center;
     align-items: center;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+    text-justify: center;
+    width: 200px;
+    height: 50px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
 
 .central {
     background: white;
-    width: 550px;
     padding: 50px;
-    margin-top: 20px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,8 +44,7 @@ main {
 >>>>>>> bf17c7da233f112f7c5ca5a8391a358c73700e54
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-
+    gap: 32px;
 }
 
 <<<<<<< HEAD
@@ -54,8 +63,7 @@ main {
     border-radius: 12px;
     padding: 12px;
     color: #fff;
-    font-size: 16px;
-
+    font-size: 24px;
 }
 
 .Pedidos {
@@ -63,7 +71,7 @@ main {
     border-radius: 12px;
     padding: 12px;
     color: #fff;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .Comanda {
@@ -71,7 +79,7 @@ main {
     border-radius: 12px;
     padding: 12px;
     color: #fff;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .Usuario {
@@ -79,7 +87,7 @@ main {
     border-radius: 12px;
     padding: 12px;
     color: #fff;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .Mesa {
@@ -87,8 +95,10 @@ main {
     border-radius: 12px;
     padding: 12px;
     color: #fff;
-    font-size: 16px;
+    font-size: 24px;
     justify-content: center;
-    align: center;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 216%;
 }
