@@ -1,9 +1,12 @@
   * {
+      background-color: #0A1828;
       padding: 0;
       margin: 0;
       box-sizing: border-box;
       list-style: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
 
   .login_body {
       display: flex;
@@ -22,16 +25,21 @@
       /* opacity: 0; */
   }
 
+
   .sucesso {
-      background-color: rgb(28, 21, 166);
+      background-color: rgba(28, 21, 166, 0.993);
   }
 
   .erro {
       background-color: red;
+
   }
 
   .toastify p {
       color: #fff;
+      font: bold;
+      ;
+      background-color: transparent;
   }
 
   @keyframes open {
@@ -57,9 +65,16 @@
       padding: 30px;
       border: 1px solid #3500b1;
       align-items: center;
+      background-color: #002349;
 
 
 
+  }
+
+  h2 {
+      color: #957C3D;
+      margin-bottom: 16px;
+      background-color: #002349;
   }
 
   .input-group {
@@ -68,11 +83,23 @@
       width: 100%;
       padding: 4px;
       gap: 8px;
+      background-color: #002349;
+  }
+
+  label {
+      background-color: #002349;
+      color: #fff;
+  }
+
+  input {
+      background-color: #fff;
+      border: 1px solid #957C3D;
+
   }
 
   form:hover {
-      box-shadow: 0 0 15px #3500b1;
-      transition: 0.3s;
+      box-shadow: 0 0 24px #3500b1;
+      transition: 0.4s;
   }
 
   #botom {
