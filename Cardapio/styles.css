@@ -2,6 +2,8 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    background-color: #002349;
+    color: aliceblue;
 
 }
 
@@ -38,7 +40,51 @@ main {
 
 .Botoes {
     display: flex;
-    justify-content: left 20px;
+    justify-content: center;
+    align-items: center;
     gap: 16px;
     padding: 24px;
+}
+
+.cardapio_item {
+    border: 1px solid #fbf9f9;
+    border-radius: 8px;
+
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    color: bisque;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardapio_item h3 {
+    width: 100%;
+}
+
+.cardapio_item span,
+.cardapio_item button {
+    min-width: max-content;
+}
+
+.ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
 }

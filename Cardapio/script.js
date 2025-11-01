@@ -16,19 +16,21 @@ export async function listarCardapio() {
     const listardocardapio = document.querySelector(".lista_cardapio")
     listardocardapio.innerHTML = ""
     const ul = document.createElement("ul")
+    ul.classList.add("ul")
     listardocardapio.append(ul)
     // const respsta = await fetch("http://localhost:5257/api/CardapioItem")
     const cardapio = list
     cardapio.forEach(element => {
         const li = document.createElement("li")
-        li.classList.add("cardapio-item")
+
+        li.classList.add("cardapio_item")
         li.innerHTML = `
-        <h3 class="cardapio-nome">${element.nome}</h3>
+        <h3 class="cardapio_nome">${element.nome}</h3>
        
-        <span class="cardapio-preco">R$ ${element.preco}</span>
-        <button class="cardapio-vermais" id="${element.id}">Ver mais</button>
+        <span class="cardapio_preco">R$ ${element.preco}</span>
+        <button class="cardapio_vermais" id="${element.id}">Ver mais</button>
         `
-        const vermaisBtn = li.querySelector('.cardapio-vermais');
+        const vermaisBtn = li.querySelector('.cardapio_vermais');
         vermaisBtn.addEventListener('click', () => {
             openModalDesc(element)
             // const modal = document.querySelector('.modal');
