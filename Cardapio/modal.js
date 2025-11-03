@@ -9,7 +9,7 @@ export function openModalDesc(element) {
     <div class="modal-conteudo">
         <span class="modal_fechar">&times;</span>
 
-        <p class="cardapio-descricao">${element.descricao}</p>
+        <p class="cardapio_descricao">${element.descricao}</p>
         <img src="${element.ImageUrl}" alt="">
         <button class="modal_editar">Editar</button>
     </div>
@@ -32,14 +32,23 @@ export function openModalDesc(element) {
 }
 export function openModalEdit(element) {
     const modal = document.querySelector('.modal');
+    modal.classList.add('modal_edit');
     modal.innerHTML = `
-    <input type="text" id="edit_description" value="${element.descricao}">
-    <input type="text" id="edit_ImageUrl" value="${element.ImageUrl}">
-    <input type="number" id="edit_price" value="${element.preco}">
-    <input type="text" id="edit_nome" value="${element.nome}">
-    <input type="text" id="edit_tipo" value="${element.tipo}">
-    <button class="modal_salvar">Salvar</button>
+    <div class="modal_conteudo_editar">
+        <span class="modal_fechar">&times;</span>
+        <input type="text" id="edit_description" value="${element.descricao}">
+        <input type="text" id="edit_ImageUrl" value="${element.ImageUrl}">
+        <input type="number" id="edit_price" value="${element.preco}">
+        <input type="text" id="edit_nome" value="${element.nome}">
+        <input type="text" id="edit_tipo" value="${element.tipo}">
+        <button class="modal_salvar">Salvar</button>
+    </div>
     `;
+    const fecharBtn = modal.querySelector('.modal_fechar');
+
+    fecharBtn.addEventListener('click', (event) => {
+        modal.style.display = 'none';
+    });
     const modal_salvar = modal.querySelector('.modal_salvar');
     modal_salvar.addEventListener('click', (event) => {
         element.description = document.querySelector('#edit_description').value;

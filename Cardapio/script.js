@@ -9,7 +9,7 @@ const list = [
     , { id: "3", nome: "X-Bacon", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese e bacon", preco: 20.00, ImageUrl: "https://br.freepik.com/fotos-gratis/closeup-tiro-de-um-hamburguer-com-bacon-e-queijo-uma-caneca-de-cafe-vermelha_8280993.htm#fromView=keyword&page=1&position=1&uuid=461efc52-9893-4821-aa74-c663f6a5ad5c&query=Hamburger" }
     , { id: "4", nome: "X-Egg", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese e ovo", preco: 22.00 }
     , { id: "5", nome: "X-Tudo", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese, bacon e ovo", preco: 25.00 }
-
+ 
 ]
 // openModalDesc()
 export async function listarCardapio() {
