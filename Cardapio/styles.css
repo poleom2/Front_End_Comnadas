@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     font-size: 40px;
-    color: #000000;
+    color: #957C3D;
     font-family: 'Arial', sans-serif;
     margin-left: 20px;
 }
@@ -89,6 +89,7 @@ main {
     display: none;
     max-width: 90%;
 }
+
 .modal-conteudo {
     padding: 16px;
     border-radius: 8px;
@@ -98,6 +99,7 @@ main {
     gap: 8px;
     max-width: 500px;
 }
+
 .modal_conteudo_editar {
     display: flex;
     flex-direction: column;
@@ -106,8 +108,9 @@ main {
     max-width: 500px;
     min-width: 300px;
     justify-items: autoS;
-    
+
 }
+
 .modal_salvar {
     padding: 8px 16px;
     background-color: #af2dc9;
