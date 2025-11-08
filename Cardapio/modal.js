@@ -1,5 +1,8 @@
-import { listarCardapio } from "./script.js";
-
+// import { listarCardapio } from "../Cardapio/script.js";
+const baseUrl = "http://localhost:5257"
+const heders = {
+    "Content-Type": "application/json "
+}
 export function openModalDesc(element) {
     //abri o modal 1
     console.log("Modal de descrição aberto");
@@ -7,10 +10,10 @@ export function openModalDesc(element) {
     modal.style.display = 'block';
     modal.innerHTML = `
     <div class="modal-conteudo">
-        <span class="modal_fechar">&times;</span>
+        <button class="modal_fechar">&times;</button>
 
         <p class="cardapio_descricao">${element.descricao}</p>
-        <img src="${element.ImageUrl}" alt="">
+        <img src="${element.imagem}" alt="">
         <button class="modal_editar">Editar</button>
     </div>
     `;
@@ -26,20 +29,18 @@ export function openModalDesc(element) {
 
 
     });
-
-
-
 }
-export function openModalEdit(element) {
+
+export async function openModalEdit(element) {
     const modal = document.querySelector('.modal');
     modal.classList.add('modal_edit');
     modal.innerHTML = `
     <div class="modal_conteudo_editar">
         <span class="modal_fechar">&times;</span>
         <input type="text" id="edit_description" value="${element.descricao}">
-        <input type="text" id="edit_ImageUrl" value="${element.ImageUrl}">
-        <input type="number" id="edit_price" value="${element.preco}">
-        <input type="text" id="edit_nome" value="${element.nome}">
+        <input type="text" id="edit_Imagem" value="${element.imagem}">
+        <input type="number" id="edit_preco" value="${element.preco}">
+        <input type="text" id="edit_titulo" value="${element.titulo}">
         <input type="text" id="edit_tipo" value="${element.tipo}">
         <button class="modal_salvar">Salvar</button>
     </div>
@@ -50,17 +51,26 @@ export function openModalEdit(element) {
         modal.style.display = 'none';
     });
     const modal_salvar = modal.querySelector('.modal_salvar');
-    modal_salvar.addEventListener('click', (event) => {
-        element.description = document.querySelector('#edit_description').value;
-        element.ImageUrl = document.querySelector('#edit_ImageUrl').value;
-        element.price = parseFloat(document.querySelector('#edit_price').value);
-        element.nome = document.querySelector('#edit_nome').value;
-        element.tipo = document.querySelector('#edit_tipo').value;
-        console.log(element);
-        //put
+
+
+
+    modal_salvar.addEventListener('click', async (event) => {
+        const produtoUpdate = {
+            titulo: document.querySelector("#edit_titulo").value,
+            descricao: document.querySelector("#edit_description").value,
+            imagem: document.querySelector("#edit_Imagem").value,
+            preco: document.querySelector("#edit_preco").value,
+            tipo: document.querySelector("#edit_tipo").value
+        }
+        const aslvarCardapio = await fetch(`${baseUrl}/api/CardapioItem/${element.id}`, {
+            method: "PUT",
+            headers: heders,
+            body: JSON.stringify(produtoUpdate)
+        })
+
         modal.style.display = 'none';
-        listarCardapio()
+        window.location.reload()
+
     });
-
-
 }
+

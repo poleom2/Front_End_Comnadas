@@ -1,8 +1,9 @@
-import { list } from "../Cardapio/script";
+import { listDeComandas } from "../Cardapio/script.js";
 
-export function MenuComanda(element) {
+
+export function menuComanda() {
     const ul = document.querySelector(".ul");
-    const comanda = list
+    const comanda = listDeComandas();
     comanda.forEach(element => {
         const li = document.createElement("li")
         li.classList.add("comanda_item")
@@ -15,4 +16,4 @@ export function MenuComanda(element) {
         ul.appendChild(li)
     })
 }
-MenuComanda();
+menuComanda();
