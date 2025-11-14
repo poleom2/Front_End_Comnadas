@@ -28,3 +28,20 @@
           font-family: 'Arial', sans-serif;
           margin-left: 20px;
       }
+
+      /* .contem {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          gap: 8px;
+          padding: 24px;
+
+          color: rgb(254, 254, 254);
+      }
+
+      .contem .ul {
+          gap: 8px;
+          padding: 24px;
+
+          color: rgb(254, 254, 254);
+      } */
