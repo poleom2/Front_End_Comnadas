@@ -29,19 +29,15 @@
           margin-left: 20px;
       }
 
-      /* .contem {
-          display: flex;
-          align-items: center;
-          flex-direction: row;
-          gap: 8px;
-          padding: 24px;
-
-          color: rgb(254, 254, 254);
+      .Botoes{
+        display: flex;
+        align-items: center;
+       justify-content: center;
+       color: rgb(255, 255, 255);
+       border-color: #957C3D;
       }
-
-      .contem .ul {
-          gap: 8px;
-          padding: 24px;
-
-          color: rgb(254, 254, 254);
-      } */
+   .Botoes .btn_novaMesa{
+       color: rgb(255, 255, 255);
+       border-color: #957C3D;
+       padding: 8px;
+   }

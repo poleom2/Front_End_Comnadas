@@ -1,9 +1,9 @@
-const baseUrl = "http://localhost:5257"
+const baseUrl = "http://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }
 async function ListasDasMesas() {
-    const response = await fetch("http://localhost:5257/api/Mesa", {
+    const response = await fetch("https://localhost:7004/api/Mesa", {
         headers: heders
     })
     const MesaLista = await response.json()
@@ -11,15 +11,20 @@ async function ListasDasMesas() {
     MesaLista.forEach(element => {
 
         const ul = document.querySelector("ul")
+        const li = document.createElement("li")
+        li.classList.add("lista")
 
-        ul.innerHTML =
+
+        li.innerHTML =
             `
             <h3 class="Numero_mesa">${element.numeroMesa}</h3>
             <span class="Situacao_Mesa"> ${element.situacaoMesa}</span>
             <button Class="remove"> 
             // <i class="fa-solid fa-trash"></i>
             </button>
+
         `
+        ul.appendChild(li)
     });
 
 

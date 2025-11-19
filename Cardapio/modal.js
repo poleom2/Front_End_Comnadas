@@ -1,5 +1,5 @@
 // import { listarCardapio } from "../Cardapio/script.js";
-const baseUrl = "http://localhost:5257"
+const baseUrl = "http://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }
@@ -62,11 +62,13 @@ export async function openModalEdit(element) {
             preco: document.querySelector("#edit_preco").value,
             tipo: document.querySelector("#edit_tipo").value
         }
+        console.log(produtoUpdate)
         const aslvarCardapio = await fetch(`${baseUrl}/api/CardapioItem/${element.id}`, {
             method: "PUT",
             headers: heders,
             body: JSON.stringify(produtoUpdate)
         })
+
 
         modal.style.display = 'none';
         window.location.reload()

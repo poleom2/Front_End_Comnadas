@@ -1,7 +1,7 @@
 import { openModalDesc } from "./modal.js"
 
 
-const baseUrl = "http://localhost:5257"
+const baseUrl = "http://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }
@@ -25,11 +25,12 @@ const heders = {
 // openModalDesc()
 async function listarCardapio() {
 
-    const respsta = await fetch("http://localhost:5257/api/CardapioItem", {
+    const respsta = await fetch("https://localhost:7004/api/CardapioItem", {
         headers: heders
     })
     // const cardapio = list
     const cardapio = await respsta.json()
+    console.log(cardapio)
     const listardocardapio = document.querySelector(".lista_cardapio")
 
     const ul = document.createElement("ul")
