@@ -198,3 +198,16 @@ main {
     border: none;
     cursor: pointer;
 }
+
+.tipos_lanches {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.tipos_lanches input {
+    width: 24px;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+}

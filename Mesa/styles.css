@@ -28,3 +28,16 @@
           font-family: 'Arial', sans-serif;
           margin-left: 20px;
       }
+
+      .Botoes{
+        display: flex;
+        align-items: center;
+       justify-content: center;
+       color: rgb(255, 255, 255);
+       border-color: #957C3D;
+      }
+   .Botoes .btn_novaMesa{
+       color: rgb(255, 255, 255);
+       border-color: #957C3D;
+       padding: 8px;
+   }
