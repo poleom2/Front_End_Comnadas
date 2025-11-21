@@ -1,4 +1,4 @@
-import { openModalDesc as openModalEditar } from "./modal.js";
+import { openModalEditar } from "./modal.js";
 
 const baseUrl = "http://localhost:5211/";
 const headers = {
@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//listar usuários
+// listar usuários
 async function listarUsuarios() {
     try {
-        const response = await fetch(`http://localhost:5211/api/Usuario`, {
+        const response = await fetch(`${baseUrl}api/Usuario`, {
             headers: headers
         });
         if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
@@ -40,7 +40,7 @@ async function listarUsuarios() {
                 <h3 class="usuario">${element.nome}</h3>
                 <span class="usuario">${element.email}</span>
                 <button class="usuario_editar" data-id="${element.id}">Ver mais</button>
-                <button class="remove" data-id="${element.id}">
+                <button class="removeBtn" data-id="${element.id}">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             `;
@@ -54,10 +54,10 @@ async function listarUsuarios() {
             }
 
             // remover
-            const removeBtn = li.querySelector('.remove');
+            const removeBtn = li.querySelector('.removeBtn');
             if (removeBtn) {
                 removeBtn.setAttribute('aria-label', 'Remover usuário');
-                removeBtn.addEventListener('click', () => removerUsuario(element));
+                removeBtn.addEventListener('click', () => removerUsuario(element, removeBtn));
             }
 
             ul.appendChild(li);
@@ -67,8 +67,6 @@ async function listarUsuarios() {
         alert("Erro ao carregar usuários. Verifique o servidor e CORS.");
     }
 }
-
-
 
 // modal de novo usuário
 function openNovoUsuario() {
@@ -106,30 +104,21 @@ function openNovoUsuario() {
             return;
         }
 
-        try {
-            const response = await fetch(`http://localhost:5211/api/Usuario`, { headers });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const usuarios = await response.json();
 
-        } catch (error) {
-            console.error("Erro ao buscar usuários:", error);
-        }
         const novoUsuario = {
             nome: nome,
             email: email,
             senha: senha
         };
         try {
-            const response = await fetch(`http://localhost:5211/api/Usuario`, {
+            const response = await fetch(`${baseUrl}api/Usuario`, {
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify(novoUsuario)
-
             });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             alert("Usuário criado com sucesso!");
             modal.style.display = 'none';
-
             listarUsuarios();
         } catch (error) {
             console.error("Erro ao criar usuário:", error);
@@ -141,28 +130,46 @@ function openNovoUsuario() {
 // remover usuário
 async function removerUsuario(element, removeBtn) {
     // Confirmação
+    if (!confirm("Tem certeza de que deseja excluir este usuário?")) {
+        return;
+    }
 
-    const response = await fetch(`${baseUrl}/api/Usuario/`, { headers });
+
+    if (removeBtn) {
+        removeBtn.disabled = true;
+        removeBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+    }
 
     try {
-        const deleteResponse = await fetch(`${baseUrl}/api/Usuario/${element.id}`, {
+
+        const deleteResponse = await fetch(`${baseUrl}api/Usuario/${element.id}`, {
             method: "DELETE",
             headers: headers,
-
-
         });
 
-        alert("Usuário excluído com sucesso!");
-        if (typeof listarUsuarios === 'function') {
-            listarUsuarios();
+
+        if (deleteResponse.ok) {
+            alert("Usuário excluído com sucesso!");
+            if (typeof listarUsuarios === 'function') {
+                listarUsuarios();
+            } else {
+                window.location.reload();
+            }
         } else {
-            window.location.reload();
+
+            const errorData = await deleteResponse.json().catch(() => ({}));
+            alert(`Erro ao deletar usuário: ${deleteResponse.status} - ${errorData.message || 'Erro desconhecido'}`);
         }
     } catch (error) {
         console.error("Erro ao deletar usuário:", error);
         alert(`Erro ao deletar usuário: ${error.message}`);
+    } finally {
+
+        if (removeBtn) {
+            removeBtn.disabled = false;
+            removeBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        }
     }
 }
-
 
 listarUsuarios();

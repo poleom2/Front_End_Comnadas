@@ -121,17 +121,12 @@ main {
     position: absolute;
     right: 0;
     top: 0;
-
-
-}
-
-.modal-conteudo .modal_fechar {
-    position: absolute;
-    right: 0;
-    top: 0;
     border: none;
     cursor: pointer;
+
 }
+
+
 
 .modal-conteudo .modal_editar {
     border: none;
