@@ -1,6 +1,6 @@
 import { openModalEditar } from "./modal.js";
 
-const baseUrl = "http://localhost:5211/";
+const baseUrl = "http://localhost:7004";
 const headers = {
     "Content-Type": "application/json"
 };
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // listar usuários
 async function listarUsuarios() {
     try {
-        const response = await fetch(`${baseUrl}api/Usuario`, {
+        const response = await fetch(`https://localhost:7004/api/Usuario`, {
             headers: headers
         });
         if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
