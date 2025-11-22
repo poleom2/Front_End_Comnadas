@@ -5,8 +5,17 @@ const headers = {
     "Content-Type": "application/json"
 };
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
     listarUsuarios();
+    const home = document.querySelector(".logo")
+    if (home) {
+        home.addEventListener('click', () => {
+            console.log("click home");
+            goHome();
+        })
+    }
 
     const novoUsuario = document.querySelector(".btn_novousuario");
     if (novoUsuario) {
@@ -16,6 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+function goHome() {
+
+    location.href = '../Home/index.html';
+};
+
 
 // listar usuários
 async function listarUsuarios() {

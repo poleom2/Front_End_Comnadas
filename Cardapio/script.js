@@ -23,6 +23,7 @@ const heders = {
 
 
 // openModalDesc()
+
 async function listarCardapio() {
    const novo = document.querySelector(".btn_novocaradapio")
         novo.addEventListener('click', () => {
@@ -33,6 +34,7 @@ async function listarCardapio() {
         headers: heders
     })
     // const cardapio = list
+
     const cardapio = await respsta.json()
     console.log(cardapio)
     const listardocardapio = document.querySelector(".lista_cardapio")
@@ -83,6 +85,13 @@ async function listarCardapio() {
     
 }
 listarCardapio();
+const home = document.querySelector(".logo")
+if (home) {
+    home.addEventListener('click', () => {
+        console.log("click home");
+        goHome();
+    })
+}
 
 // openModalDesc()
 function openNovoCardapio() {
@@ -146,6 +155,7 @@ function openNovoCardapio() {
         // window.location.reload()
          modal_Novocardarpio.style.display = "none"
     })
+<<<<<<< HEAD
 }
 function Modal_DeNavegacao()
 {
@@ -188,3 +198,11 @@ function Modalnavegar() {
     });
 }
 
+=======
+
+}
+function goHome() {
+
+    location.href = '../Home/index.html';
+};
+>>>>>>> 577761c (Função goHome clicando no logo. E entrada padrão pra login d teste)

@@ -18,6 +18,7 @@
     width: 150px;
     left: 20px;
     position: absolute;
+    cursor: pointer;
 }
 
 .title {
