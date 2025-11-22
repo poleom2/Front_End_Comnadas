@@ -23,12 +23,14 @@ const heders = {
 
 
 // openModalDesc()
+
 async function listarCardapio() {
 
     const respsta = await fetch("https://localhost:7004/api/CardapioItem", {
         headers: heders
     })
     // const cardapio = list
+
     const cardapio = await respsta.json()
     console.log(cardapio)
     const listardocardapio = document.querySelector(".lista_cardapio")
@@ -81,6 +83,13 @@ async function listarCardapio() {
     })
 }
 listarCardapio();
+const home = document.querySelector(".logo")
+if (home) {
+    home.addEventListener('click', () => {
+        console.log("click home");
+        goHome();
+    })
+}
 
 // openModalDesc()
 function openNovoCardapio() {
@@ -140,4 +149,9 @@ function openNovoCardapio() {
         // window.location.reload()
         // modal_Novocardarpio.style.display = "none"
     })
+
 }
+function goHome() {
+
+    location.href = '../Home/index.html';
+};

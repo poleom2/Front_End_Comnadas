@@ -68,6 +68,11 @@ function verificarUsuario(email, password) {
         if (user.email === email && user.senha === password) {
             usuarioEncontrado = user;
         }
+        /////////////////usuarios padrão para desenvolvedor/////////////
+        if (email.value == 'Miguel' && password.value == '1234' || email.value == 'Gabriel' && password.value == '1234') {
+            usuarioEncontrado = user;
+        }
+        /////////////////usuarios padrão para desenvolvedor/////////////
     });
 
     if (usuarioEncontrado) {
