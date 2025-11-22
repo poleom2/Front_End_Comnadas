@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:7004";
+const baseUrl = "https://localhost:7004";
 const headers = {
     "Content-Type": "application/json"
 };
@@ -21,7 +21,7 @@ export function openModalEditar(element) {
             <label for="edit_email">Email:</label>
             <input type="email" id="edit_email" value="${element.email || ''}" placeholder="Digite o email" required>
             <label for="edit_senha">Senha:</label>
-            <input type="senha" id="edit_senha" value="${element.senha || ''}" placehalder="Digite a senha" requires>
+            <input type="password" id="edit_senha" value="${element.senha || ''}" placeholder="Digite a senha" required>
             <button class="modal_salvar" disabled>Salvar</button>
         </div>
     `;
@@ -66,11 +66,14 @@ export function openModalEditar(element) {
         const usuarioUpdate = { nome: nome, email: email, senha: senha };
 
         try {
+            console.log("Tentando atualizar usuário ID:", element.id);
+            console.log("Dados:", usuarioUpdate);
             const response = await fetch(`${baseUrl}/api/Usuario/${element.id}`, {
                 method: "PUT",
                 headers: headers,
                 body: JSON.stringify(usuarioUpdate)
             });
+            console.log(response, "response?")
             if (!response.ok) {
                 throw new Error(`Erro HTTP! Status: ${response.status} - ${response.statusText}`);
             }
@@ -90,7 +93,6 @@ export function openModalEditar(element) {
             salvarBtn.textContent = 'Salvar';
         }
     };
-
 
     fecharBtn.addEventListener('click', fecharModal);
     salvarBtn.addEventListener('click', salvarAlteracoes);
