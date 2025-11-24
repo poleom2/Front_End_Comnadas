@@ -127,6 +127,7 @@ function openNovoCardapio() {
             tipo: document.querySelector("#tipo_lanche").value,
             tipo: document.querySelector("#tipo_bebidas").value,
 
+ 
         }
         console.log(JSON.stringify(producto_novo));
         const salvarCardapio = await fetch(`${baseUrl}/api/CardapioItem`, {
@@ -140,4 +141,52 @@ function openNovoCardapio() {
         // window.location.reload()
         // modal_Novocardarpio.style.display = "none"
     })
+}
+function Modal_DeNavegacao()
+{
+
+const botondenavegar = document.createElement("button")
+botondenavegar.classList.add("botondenavegar")
+const ModalNavegacao = document.querySelector(".ModalNavegacao")
+
+botondenavegar.innerHTML=`
+<button class="btn_navegar">
+<i class="fa-solid fa-bars"></i>
+</button>
+`;
+ModalNavegacao.appendChild(botondenavegar)
+const btnNavegar = document.querySelector(".btn_navegar")
+ btnNavegar.addEventListener("click", ()=>
+ {
+    Modalnavegar();
+})
+}
+Modal_DeNavegacao();
+function Modalnavegar() {
+   const ModalNavegacao = document.querySelector(".ModalNavegacao")
+   
+     ModalNavegacao.innerHTML=`
+                 <nav class="navegacao_links">
+
+                     <a href="../Home/index.html">Home</a>
+                     <a href="../comanda/index.html">Comanda</a>
+                     <a href="../Mesa/index.html">Mesa</a>
+                     <a href="../pedido_Cozinha/">Pedido de Cozinha</a>
+                 </nav>
+
+        `;        
+
+       
+        document.addEventListener("click", fecharModalNavegacao);
+}
+function fecharModalNavegacao(event) {
+    const navegacao_links = document.querySelector(".navegacao_links")
+     const botao = document.querySelector(".botondenavegar")
+            if (!ModalNavegacao) return;
+
+    const clicouFora = !ModalNavegacao.event.target && event.target !== btnNavegar;
+    if (clicouFora) {
+        
+        ModalNavegacao.classList.remove("active");
+    }
 }
