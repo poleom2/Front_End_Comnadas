@@ -155,6 +155,7 @@ botondenavegar.innerHTML=`
 </button>
 `;
 ModalNavegacao.appendChild(botondenavegar)
+
 const btnNavegar = document.querySelector(".btn_navegar")
  btnNavegar.addEventListener("click", ()=>
  {
@@ -163,30 +164,22 @@ const btnNavegar = document.querySelector(".btn_navegar")
 }
 Modal_DeNavegacao();
 function Modalnavegar() {
-   const ModalNavegacao = document.querySelector(".ModalNavegacao")
-   
-     ModalNavegacao.innerHTML=`
-                 <nav class="navegacao_links">
+    const ModalNavegacao = document.querySelector(".ModalNavegacao");
+      const botao = document.querySelector("btnNavegar");
+    ModalNavegacao.innerHTML = `
+    <nav class="navegacao_links">
+    <button class="btn_fecharnavegar">&times;</button>
+    <a href="../Home/index.html">Home</a>
+    <a href="../comanda/index.html">Comanda</a>
+    <a href="../Mesa/index.html">Mesa</a>
+    <a href="../pedido_Cozinha/">Pedido de Cozinha</a>
+    </nav>
+    `;
+    const btnFecharNavegar = document.querySelector(".btn_fecharnavegar");
+    btnFecharNavegar.addEventListener("click", () => {
 
-                     <a href="../Home/index.html">Home</a>
-                     <a href="../comanda/index.html">Comanda</a>
-                     <a href="../Mesa/index.html">Mesa</a>
-                     <a href="../pedido_Cozinha/">Pedido de Cozinha</a>
-                 </nav>
-
-        `;        
-
-       
-        document.addEventListener("click", fecharModalNavegacao);
+        ModalNavegacao.style.display = "none";
+        window.location.reload();
+    });
 }
-function fecharModalNavegacao(event) {
-    const navegacao_links = document.querySelector(".navegacao_links")
-     const botao = document.querySelector(".botondenavegar")
-            if (!ModalNavegacao) return;
 
-    const clicouFora = !ModalNavegacao.event.target && event.target !== btnNavegar;
-    if (clicouFora) {
-        
-        ModalNavegacao.classList.remove("active");
-    }
-}

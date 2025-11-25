@@ -240,5 +240,16 @@ main {
     border: none;
     border-radius: 50%;
     cursor: pointer;
+
     
+}
+.btn_fecharnavegar{
+    position: absolute;
+    right: 0;
+    top: 0px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #957C3D;
+    cursor: pointer;
 }
