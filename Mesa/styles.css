@@ -28,6 +28,15 @@
           font-family: 'Arial', sans-serif;
           margin-left: 20px;
       }
+      main {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 120vh;
+          gap: 24px;
+      }
 
       .Botoes{
         display: flex;
@@ -35,6 +44,8 @@
        justify-content: center;
        color: rgb(255, 255, 255);
        border-color: #957C3D;
+         gap: 16px;
+         padding: 24px;
       }
    .Botoes .btn_novaMesa{
        color: rgb(255, 255, 255);
@@ -97,9 +108,24 @@ ul .lista{
     flex-direction: row;
     background-color: #002349;
     color: #957C3D;
-    padding: 8px;
-    border:  none;
+    padding: 16px;
+    width: 400px;
+    
     gap: 56px;
+    border: solid 2px #fafafa;
 
+}
+ul .remove{
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.btn_reservarMesa{
+    color: rgb(255, 255, 255);
+    border-color: #957C3D;
+    padding: 8px;
 }
    

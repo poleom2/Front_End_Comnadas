@@ -13,6 +13,14 @@ async function ListasDasMesas() {
         const ul = document.querySelector("ul")
         const li = document.createElement("li")
         li.classList.add("lista")
+        const situacaoMesa = element.situacaoMesa
+        if(situacaoMesa===0){
+            element.situacaoMesa="Disponivel"
+        }else if(situacaoMesa===1){
+            element.situacaoMesa="Ocupada"
+        }else{
+            element.situacaoMesa="Reservada"
+        }
 
 
         li.innerHTML =
@@ -20,7 +28,7 @@ async function ListasDasMesas() {
             <h3 class="Numero_mesa">${element.numeroMesa}</h3>
             <span class="Situacao_Mesa"> ${element.situacaoMesa}</span>
             <button Class="remove"> 
-            // <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash"></i>
             </button>
 
         `
