@@ -1,5 +1,6 @@
-const baseUrl = "http://localhost:7004"
-const heders = {
+
+export const baseUrl = "https://localhost:7004"
+export const heders = {
     "Content-Type": "application/json "
 }
 async function ListasDasMesas() {
@@ -25,14 +26,25 @@ async function ListasDasMesas() {
 
         li.innerHTML =
             `
-            <h3 class="Numero_mesa">${element.numeroMesa}</h3>
+            <h3 class="Numero_mesa">${element.numeroMesa}
             <span class="Situacao_Mesa"> ${element.situacaoMesa}</span>
+            </h3>
             <button Class="remove"> 
             <i class="fa-solid fa-trash"></i>
             </button>
 
         `
         ul.appendChild(li)
+        const btnRemove = li.querySelector(".remove")
+        btnRemove.addEventListener("click", async () => {
+            const mesaId = element.id
+            console.log(mesaId)
+          await fetch(`https://localhost:7004/api/Mesa/${mesaId}`, {
+                method: "DELETE",
+                headers: heders
+            })
+            ul.removeChild(li)
+        })
     });
 
 
@@ -65,6 +77,7 @@ function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
       const botao = document.querySelector("btnNavegar");
     ModalNavegacao.innerHTML = `
+      
     <nav class="navegacao_links">
     <button class="btn_fecharnavegar">&times;</button>
     <a href="../Home/index.html">Home</a>
@@ -72,11 +85,27 @@ function Modalnavegar() {
     <a href="../comanda/index.html">Mesa</a>
     <a href="../pedido_Cozinha/">Pedido de Cozinha</a>
     </nav>
+    
     `;
     const btnFecharNavegar = document.querySelector(".btn_fecharnavegar");
+   
     btnFecharNavegar.addEventListener("click", () => {
-
-        ModalNavegacao.style.display = "none";
-        window.location.reload();
+        ModalNavegacao.innerHTML=""
+        // ModalNavegacao.style.display = "none";
+        // window.location.reload();
+        Modal_DeNavegacao()
     });
+    //  document.body.addEventListener("click",(e)=>{
+    //     handleClose(e)
+    //     document.body.removeEventListener("click", handleClose)
+    // })
 }
+// function handleClose(e){
+//      const ModalNavegacao = document.querySelector(".ModalNavegacao");
+//  if (Array.from(e.target.classList).includes("ModalNavegacao")) {
+//     console.log("clicou fora")
+//             ModalNavegacao.innerHTML="" 
+//              Modal_DeNavegacao()
+             
+//         }
+// }

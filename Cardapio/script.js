@@ -1,7 +1,7 @@
 import { openModalDesc } from "./modal.js"
 
 
-const baseUrl = "http://localhost:7004"
+const baseUrl = "https://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }
@@ -24,7 +24,11 @@ const heders = {
 
 // openModalDesc()
 async function listarCardapio() {
-
+   const novo = document.querySelector(".btn_novocaradapio")
+        novo.addEventListener('click', () => {
+            console.log("click")
+            openNovoCardapio()
+        })
     const respsta = await fetch("https://localhost:7004/api/CardapioItem", {
         headers: heders
     })
@@ -49,7 +53,7 @@ async function listarCardapio() {
        
         <span class="cardapio_preco">R$ ${element.preco}</span>
         <button class="cardapio_vermais" id="${element.id}"> <i class="fa-solid fa-list-ul"></i> </button>
-        <button class="remuve" id="remuve">
+        <button class="remuve" id="${element.id}-remuve">
             <i class="fa-solid fa-trash"> </i>
         </button>
         `
@@ -62,23 +66,21 @@ async function listarCardapio() {
 
         ul.appendChild(li)
 
-        const novo = document.querySelector(".btn_novocaradapio")
-        novo.addEventListener('click', () => {
-            console.log("click")
-            openNovoCardapio()
+     
+         const remuve = document.getElementById(`${element.id}-remuve`)
+        remuve.addEventListener('click', async (event) => {
+            const cardapioId = element.id
+            console.log(cardapioId)
+            await fetch(`https://localhost:7004/api/CardapioItem/${cardapioId}`, {
+                method: "DELETE",
+                headers: heders,
+    
+            })
+           ul.removeChild(li)
+            
         })
     })
-    const remuve = document.querySelector("#remuve")
-    remuve.addEventListener('click', async () => {
-
-        const remuve = await fetch(`${baseUrl}/api/CardapioItem/${Element.id}`, {
-            method: "DELETE",
-            headers: heders,
-
-        }
-
-        )
-    })
+    
 }
 listarCardapio();
 
@@ -95,14 +97,14 @@ function openNovoCardapio() {
         <input type="number" id="_preco" placeholder="Preço" >
         <input type="text" id="_titulo"  placeholder="Titulo" >
         <label for= "_Pussui_preparo">Possui Preparo </label>
-        <input type="checkbox" id= "_Pussui_preparo">
+        <input type="checkbox" id="_Pussui_preparo">
 
         <div class = tipos_lanches>
-        <input type="checkbox" id="tipo_lanche" nome=tipo_lanche value="Lanche">
+        <input type="radio" id="tipo_lanche" name="tipo" value="Lanche">
         <label for="tipo_lanche">Lanche</label>
-        <input type="checkbox" id="tipo_pratos" nome=tipo_pratos value="Pratos">
+        <input type="radio" id="tipo_pratos" name="tipo" value="Pratos">
         <label for="tipo_pratos">Pratos</label>
-        <input type="checkbox" id="tipo_bebidas" nome=tipo_bebidas value="Bebidas">
+        <input type="radio" id="tipo_bebidas" name="tipo" value="Bebidas">
         <label for="tipo_bebidas">Bebidas</label>
 
         </div>
@@ -116,30 +118,27 @@ function openNovoCardapio() {
 
     const Salvar = document.querySelector(".modal_salvar")
     Salvar.addEventListener("click", async (event) => {
-        const producto_novo = {
+
+        const producto_novo = { 
 
             titulo: document.querySelector("#_titulo").value,
             descricao: document.querySelector("#_description").value,
             imagem: document.querySelector("#_Imagem").value,
-            preco: document.querySelector("#_preco").value,
-            possuiPreparo: document.querySelector("#_Pussui_preparo").value,
+            preco: Number(document.querySelector("#_preco").value),
+            possuiPreparo: document.querySelector("#_Pussui_preparo").checked,
             tipo: document.querySelector("#tipo_pratos").value,
             tipo: document.querySelector("#tipo_lanche").value,
             tipo: document.querySelector("#tipo_bebidas").value,
-
- 
         }
         console.log(JSON.stringify(producto_novo));
         const salvarCardapio = await fetch(`${baseUrl}/api/CardapioItem`, {
-
-
             method: "POST",
             headers: heders,
             body: JSON.stringify(producto_novo)
         });
         console.log(salvarCardapio);
-        // window.location.reload()
-        // modal_Novocardarpio.style.display = "none"
+        window.location.reload()
+         modal_Novocardarpio.style.display = "none"
     })
 }
 function Modal_DeNavegacao()
