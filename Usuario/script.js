@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (home) {
         home.addEventListener('click', () => {
             console.log("click home");
-            goHome();
+
         })
     }
 
@@ -26,10 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-function goHome() {
 
-    location.href = '../Home/index.html';
-};
 
 
 // listar usuários

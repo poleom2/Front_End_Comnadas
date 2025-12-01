@@ -87,7 +87,7 @@ const home = document.querySelector(".logo")
 if (home) {
     home.addEventListener('click', () => {
         console.log("click home");
-        goHome();
+
     })
 }
 
@@ -151,7 +151,3 @@ function openNovoCardapio() {
     })
 
 }
-function goHome() {
-
-    location.href = '../Home/index.html';
-};
