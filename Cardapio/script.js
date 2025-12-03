@@ -118,7 +118,14 @@ function openNovoCardapio() {
 
     const Salvar = document.querySelector(".modal_salvar")
     Salvar.addEventListener("click", async (event) => {
-
+        let tipo = 0
+        if(document.getElementById("tipo_lanche").checked){
+            tipo = 1
+        }else if(document.getElementById("tipo_pratos").checked){
+            tipo = 3
+        }else if(document.getElementById("tipo_bebidas").checked){
+            tipo = 2
+        }
         const producto_novo = { 
 
             titulo: document.querySelector("#_titulo").value,
@@ -126,9 +133,8 @@ function openNovoCardapio() {
             imagem: document.querySelector("#_Imagem").value,
             preco: Number(document.querySelector("#_preco").value),
             possuiPreparo: document.querySelector("#_Pussui_preparo").checked,
-            tipo: document.querySelector("#tipo_pratos").value,
-            tipo: document.querySelector("#tipo_lanche").value,
-            tipo: document.querySelector("#tipo_bebidas").value,
+            categoriaCardapioId: tipo
+            
         }
         console.log(JSON.stringify(producto_novo));
         const salvarCardapio = await fetch(`${baseUrl}/api/CardapioItem`, {
@@ -137,7 +143,7 @@ function openNovoCardapio() {
             body: JSON.stringify(producto_novo)
         });
         console.log(salvarCardapio);
-        window.location.reload()
+        // window.location.reload()
          modal_Novocardarpio.style.display = "none"
     })
 }

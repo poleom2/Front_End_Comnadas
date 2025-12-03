@@ -1,5 +1,5 @@
 // import { listarCardapio } from "../Cardapio/script.js";
-const baseUrl = "http://localhost:7004"
+const baseUrl = "https://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }

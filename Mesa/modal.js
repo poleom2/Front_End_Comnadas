@@ -1,5 +1,7 @@
 import { baseUrl, heders } from "./script.js";
 
+
+
  function modal() {
     const buttonNovaMesa = document.querySelector(".btn_novaMesa")
     buttonNovaMesa.addEventListener("click", () => {
@@ -49,8 +51,8 @@ function reserva(){
         modal_Reserva();
     } )
 }
-function modal_Reserva() {
-    const list = [{nome:"abacaxi",id:1},{nome:"manga",id:2}]
+async function modal_Reserva() {
+   
     const modal_Reserva = document.querySelector(".modal")
     modal_Reserva.style.display = "block"
     modal_Reserva.innerHTML = `
@@ -61,13 +63,28 @@ function modal_Reserva() {
         <input type="number" id="numero_telefone_reserva" placeholder="Número do Telefone">
 
          <select name="" id="slectmesa">
-            ${list.map(item => `<option value="${item.id}">${item.nome}</option>`)}
+    
             
         </select>
         <button class="modal_reservar_mesa">Reservar Mesa</button>
     </div>  
     `
+    const selectMesa = document.querySelector('#slectmesa');
+     const response = await fetch("https://localhost:7004/api/Mesa", {
+        headers: heders
+    })
+    const MesaLista = await response.json()
+    MesaLista.forEach(item => {
+        console.log(item)
+        if(item.situacaoMesa==0){
+
+            selectMesa.insertAdjacentHTML('afterbegin', 
+                `<option value="${item.numeroMesa}">${item.numeroMesa} </option>`
+            );
+        }
     
+       // selectMesa.appendChild(option);
+    })
     const fecharBtn = modal_Reserva.querySelector('.modal_fechar');
     fecharBtn.addEventListener('click', (event) => {
         modal_Reserva.style.display = 'none';
@@ -75,15 +92,15 @@ function modal_Reserva() {
     );
     const reservarMesaBtn = modal_Reserva.querySelector('.modal_reservar_mesa');
     reservarMesaBtn.addEventListener('click', async (event) => {
-        const slectmesa = document.querySelector("#slectmesa").value
-        console.log(slectmesa)
-        const numeroMesaReserva = document.querySelector("#numero_mesa_reserva").value;
+       
         const mesa_reserva = {
-            numeroMesa: Number(numeroMesaReserva),
+            nomeCliente: document.querySelector("#nome_reserva").value,
+            telefone: document.querySelector("#numero_telefone_reserva").value,
+            numeroMesa: Number(document.querySelector("#slectmesa").value),
             situacaoMesa: 1
         }
-        const reservarMesa = await fetch(`${baseUrl}/api/Mesa/ReservarMesa`, {
-            method: "PUT",
+        const reservarMesa = await fetch(`${baseUrl}/api/Reservas`, {
+            method: "POST",
             headers: heders,
             body: JSON.stringify(mesa_reserva)
         });

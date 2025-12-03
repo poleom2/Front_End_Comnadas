@@ -155,3 +155,90 @@ ul .remove{
     z-index: 2;
     
 }
+.modal_fechar{
+        position: absolute;
+    right: 16px;
+    top: 8px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #f9f9f9;
+    cursor: pointer;
+}
+#numero_mesa{
+    padding: 8px;
+    border-radius: 4px;
+    border: #ffffff solid 1px;
+    color: #ffffff;
+}
+.modal_criar_mesa{
+    padding: 8px;
+    border-radius: 4px;
+    border: #e8e8e8 solid 1px;
+    background-color: transparent;
+    color: #ffffff;
+    cursor: pointer;
+}
+.modal{
+    display: flex;
+    position: fixed;
+   
+    border: solid 2px #ffffff;
+    color: #ffffff;
+}
+.modal-conteudo-reserva{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    gap: 16px;
+    background-color: #002349;
+    padding: 24px;
+    border: solid 2px #ffffff;
+    color: #ffffff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.modal_fechar{
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #f9f9f9;
+    cursor: pointer;
+}
+#nome_reserva{
+    padding: 8px;
+    border-radius: 4px;
+    border: #ffffff solid 1px;
+    color: #ffffff;
+}
+#slectmesa{
+    padding: 8px;
+    border-radius: 4px;
+    border: #ffffff solid 1px;
+    color: #ffffff;
+}
+#numero_telefone_reserva{
+    padding: 8px;
+    border-radius: 4px;
+    border: #ffffff solid 1px;
+    color: #ffffff;
+}
+.modal_reservar_mesa{
+    padding: 8px;
+    border-radius: 4px;
+    border: #e8e8e8 solid 1px;
+    background-color: transparent;
+    color: #ffffff;
+    cursor: pointer;
+}
+.modal_reservar_mesa:hover{
+    background-color: #957C3D;
+    border: #957C3D solid 1px;
+}
