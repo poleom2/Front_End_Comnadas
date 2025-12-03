@@ -132,7 +132,7 @@ function openNovoCardapio() {
         // window.location.reload()
          modal_Novocardarpio.style.display = "none"
     })
-<<<<<<< HEAD
+
 }
 function Modal_DeNavegacao()
 {
@@ -174,11 +174,4 @@ function Modalnavegar() {
     });
 }
 
-=======
 
-}
-function goHome() {
-
-    location.href = '../Home/index.html';
-};
->>>>>>> 577761c (Função goHome clicando no logo. E entrada padrão pra login d teste)
