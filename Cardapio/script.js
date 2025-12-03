@@ -6,6 +6,7 @@ const heders = {
     "Content-Type": "application/json "
 }
 
+
 async function listarCardapio() {
    const novo = document.querySelector(".btn_novocaradapio")
         novo.addEventListener('click', () => {
@@ -16,6 +17,7 @@ async function listarCardapio() {
         headers: heders
     })
     // const cardapio = list
+
 
     const cardapio = await respsta.json()
     console.log(cardapio)
@@ -135,27 +137,26 @@ function openNovoCardapio() {
 function Modal_DeNavegacao()
 {
 
-const botondenavegar = document.createElement("button")
-botondenavegar.classList.add("botondenavegar")
-const ModalNavegacao = document.querySelector(".ModalNavegacao")
+    const botondenavegar = document.createElement("button")
+    botondenavegar.classList.add("botondenavegar")
+    const ModalNavegacao = document.querySelector(".ModalNavegacao")
 
-botondenavegar.innerHTML=`
+    botondenavegar.innerHTML = `
 <button class="btn_navegar">
 <i class="fa-solid fa-bars"></i>
 </button>
 `;
-ModalNavegacao.appendChild(botondenavegar)
+    ModalNavegacao.appendChild(botondenavegar)
 
-const btnNavegar = document.querySelector(".btn_navegar")
- btnNavegar.addEventListener("click", ()=>
- {
-    Modalnavegar();
-})
+    const btnNavegar = document.querySelector(".btn_navegar")
+    btnNavegar.addEventListener("click", () => {
+        Modalnavegar();
+    })
 }
 Modal_DeNavegacao();
 function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
-      const botao = document.querySelector("btnNavegar");
+    const botao = document.querySelector("btnNavegar");
     ModalNavegacao.innerHTML = `
     <nav class="navegacao_links">
     <button class="btn_fecharnavegar">&times;</button>
