@@ -5,24 +5,6 @@ const baseUrl = "https://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }
-// export const list = [
-//     { id: "1", nome: "X-Burguer", descricao: "Pão, hambúrguer, queijo, alface, tomate e maionese", preco: 15.00, ImageUrl: "https://t4.ftcdn.net/jpg/06/46/48/07/240_F_646480739_5zBTxkCQnOpIEnjBJtFs5I7pkx4KcC0m.jpg  ", tipo: "Lanche", numero_mesa: 5 }
-//     , { id: "2", nome: "X-Salada", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese e salada", preco: 18.00, ImageUrl: "https://br.freepik.com/fotos-premium/close-up-de-um-hamburguer-na-mesa_99999176.htm#from_element=cross_selling__photo,", tipo: "Lanche", numero_mesa: 3 }
-//     , { id: "3", nome: "X-Bacon", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese e bacon", preco: 20.00, ImageUrl: "https://br.freepik.com/fotos-gratis/closeup-tiro-de-um-hamburguer-com-bacon-e-queijo-uma-caneca-de-cafe-vermelha_8280993.htm#fromView=keyword&page=1&position=1&uuid=461efc52-9893-4821-aa74-c663f6a5ad5c&query=Hamburger", tipo: "Lanche", numero_mesa: 8 }
-//     , { id: "4", nome: "X-Egg", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese e ovo", preco: 22.00 }
-//     , { id: "5", nome: "X-Tudo", descricao: "Pão, hambúrguer, queijo, alface, tomate, maionese, bacon e ovo", preco: 25.00 }
-// ]
-
-
-// // listDeComandas()
-// export function listDeComandas() {
-//     return list;
-// }
-// listDeComandas();
-// listDeComandas()
-
-
-// openModalDesc()
 
 async function listarCardapio() {
    const novo = document.querySelector(".btn_novocaradapio")
@@ -85,13 +67,6 @@ async function listarCardapio() {
     
 }
 listarCardapio();
-const home = document.querySelector(".logo")
-if (home) {
-    home.addEventListener('click', () => {
-        console.log("click home");
-
-    })
-}
 
 // openModalDesc()
 function openNovoCardapio() {
