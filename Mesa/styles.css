@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    color: #957C3D;
+    color: #ffffff;
     cursor: pointer;
   position: absolute;
   left: 0;
@@ -76,7 +76,7 @@
 }
 .navegacao_links a {
     text-decoration: none;
-    color: #957C3D;
+    color: #ffffff;
     font-size: 16px;
 }
 .btn_navegar {
@@ -85,7 +85,7 @@
     top: 50%;
     width: 40px;
     height: 40px;
-    background-color: #957C3D;
+    background-color: #ffffff;
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -99,7 +99,7 @@
     font-size: 24px;
     background: none;
     border: none;
-    color: #957C3D;
+    color: #ffffff;
     cursor: pointer;
     color: white;
 }
@@ -107,7 +107,7 @@ ul .lista{
     display: flex;
     flex-direction: row;
     background-color: #002349;
-    color: #957C3D;
+    color: #ffffff;
     padding: 16px;
     width: 400px;
     justify-content: space-between;
