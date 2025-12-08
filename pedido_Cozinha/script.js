@@ -10,15 +10,19 @@ async function Lista_PedidosCozinha()
   
     console.log(pedidosCozinha)
     const modal = document.querySelector(".modal");
-    modal
- 
-
-    pedidosCozinha.forEach(element => {
-        modal.innerHTML = `
+    const pedidosContainer = document.createElement("div");
+    pedidosContainer.classList.add("pedidos-container");
+    modal.appendChild(pedidosContainer);
+    pedidosContainer.forEach(element => {
+        pedidosContainer.innerHTML = `
             <samp>${element.numeroMesa}</samp>
+            <ul>
+                
+            </ul>
             
             
         `;
+        
     });
     
 }
