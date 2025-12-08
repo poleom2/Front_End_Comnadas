@@ -119,6 +119,7 @@ function openNovoCardapio() {
             imagem: document.querySelector("#_Imagem").value,
             preco: Number(document.querySelector("#_preco").value),
             possuiPreparo: document.querySelector("#_Pussui_preparo").checked,
+            tipo: tipo,
             categoriaCardapioId: tipo
             
         }

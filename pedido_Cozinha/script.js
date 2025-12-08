@@ -7,18 +7,24 @@ async function Lista_PedidosCozinha()
 {
     const response = await fetch (`${baseUrl}/api/PedidoCozinha`);
     const pedidosCozinha = await response.json();
-    
+  
     console.log(pedidosCozinha)
     const modal = document.querySelector(".modal");
-    const  div= document.createElement("div")
-    div.classList.add("lista_pedidoscozinha")
-    modal.appendChild (div)
-    pedidosCozinha.forEach(element => {
-        const pedidoItem = document.createElement("h3")
-        pedidoItem.classList.add ("nome_da_comanda")
+    const pedidosContainer = document.createElement("div");
+    pedidosContainer.classList.add("pedidos-container");
+    modal.appendChild(pedidosContainer);
+    pedidosContainer.forEach(element => {
+        pedidosContainer.innerHTML = `
+            <samp>${element.numeroMesa}</samp>
+            <ul>
+                
+            </ul>
+            
+            
+        `;
         
-
     });
+    
 }
 Lista_PedidosCozinha();
 
