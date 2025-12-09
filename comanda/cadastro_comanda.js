@@ -44,8 +44,12 @@ async function carregarItensPagina() {
     }
 }
 
-
-
+const btnCancelar = $(".btn_cancelar");
+if (btnCancelar) {
+    btnCancelar.addEventListener("click", () => {
+        window.location.href = "../comanda/index.html";
+    });
+}
 
 
 const btnSalvar = $(".btn_salvarcomanda");
