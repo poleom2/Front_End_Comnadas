@@ -2,8 +2,7 @@ const baseUrl = "https://localhost:7004";
 const headers = { "Content-Type": "application/json" };
 const $ = (sel) => document.querySelector(sel);
 
-// ========== CARREGAR SELECT DA PÁGINA ==========
-//
+
 async function carregarMesasPagina() {
     const selectMesa = $("#numeroMesa");
     if (!selectMesa) return;
@@ -45,9 +44,13 @@ async function carregarItensPagina() {
     }
 }
 
+const btnCancelar = $(".btn_cancelar");
+if (btnCancelar) {
+    btnCancelar.addEventListener("click", () => {
+        window.location.href = "../comanda/index.html";
+    });
+}
 
-
-// ========== SALVAR PELA PÁGINA ==========
 
 const btnSalvar = $(".btn_salvarcomanda");
 
@@ -83,9 +86,7 @@ if (btnSalvar) {
 
 
 
-//
-// ========== FUNÇÃO DO MODAL ==========
-//
+
 export async function openNovaComanda() {
 
     const modal = $("#cadastroComandaModal");
