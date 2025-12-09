@@ -121,10 +121,11 @@ function openNovoCardapio() {
             possuiPreparo: document.querySelector("#_Pussui_preparo").checked,
             tipo: tipo,
             categoriaCardapioId: tipo
+           
             
         }
         console.log(JSON.stringify(producto_novo));
-        const salvarCardapio = await fetch(`${baseUrl}/api/CardapioItem`, {
+        const salvarCardapio = await fetch(`${baseUrl}/api/CardapioItem`,{
             method: "POST",
             headers: heders,
             body: JSON.stringify(producto_novo)
@@ -132,6 +133,7 @@ function openNovoCardapio() {
         console.log(salvarCardapio);
         // window.location.reload()
          modal_Novocardarpio.style.display = "none"
+        window.location.reload();
     })
 
 }

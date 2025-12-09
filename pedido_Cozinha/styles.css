@@ -70,3 +70,59 @@
     cursor: pointer;
     color: white;
 }
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: column;
+    padding: 32px;
+    gap: 8px;
+    margin-top: 100px;
+}
+.pedidos_container{
+
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    color: bisque;
+    list-style: none;
+
+   
+    
+
+}
+.lista{
+     padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style: none;
+    padding: 12px;
+    border: #ffffff solid 1px;
+    gap: 16px;
+
+
+}
+
+.lista ul {
+    width: 100%;
+}
+.lista ul li {
+    display: flex;
+    justify-content: space-between;
+}
+.remuve{
+    border: 0;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+}
+.vermais{
+    border: 0;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+}

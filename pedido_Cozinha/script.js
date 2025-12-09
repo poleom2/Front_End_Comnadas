@@ -11,22 +11,56 @@ async function Lista_PedidosCozinha()
     console.log(pedidosCozinha)
     const modal = document.querySelector(".modal");
     const pedidosContainer = document.createElement("div");
-    pedidosContainer.classList.add("pedidos-container");
+    pedidosContainer.classList.add("pedidos_container");
     modal.appendChild(pedidosContainer);
-    pedidosContainer.forEach(element => {
-        pedidosContainer.innerHTML = `
-            <samp>${element.numeroMesa}</samp>
-            <ul>
-                
-            </ul>
-            
-            
-        `;
+    let pedido=""
+    pedidosCozinha.forEach(element => {
+        pedidosContainer.innerHTML += `
+        <div class="lista">
+        <h3>${element.numeroMesa}</h3>
+        <ul id="${element.id}">
         
+        </ul>
+        </div>
+        
+        
+        `;
+        pedido=element
+        const ul =document.getElementById(element.id)
+          element.items.forEach(items => {
+              ul.innerHTML += `
+              <li>
+                <h3>${items.titulo}</h3>
+                 <button class="vermais">
+                    <i class="fa-solid fa-list-ul"></i>
+                   
+               </button>
+                <button class="remuve">
+                    <i class="fa-solid fa-trash"></i>
+                   
+               </button>
+                    
+                </li>
+            `;
     });
+    });
+    const vermaisbtn = document.querySelector(".vermais")
+    vermaisbtn.addEventListener('click', () => {
+          vermais(pedido)
+    })
     
 }
 Lista_PedidosCozinha();
+async function  vermais(element){
+    const modal = document.querySelector(".modal_vermais")
+    modal.innerHTML = `
+      <label for="comandaid">${element.id}</label>
+        <label for="numeroMesa">${element.numeroMesa}</label>
+        <select>
+        
+        </select>
+    `
+}
 
 
 
@@ -62,7 +96,7 @@ function Modalnavegar() {
     <a href="../Home/index.html">Home</a>
     <a href="../Cardapio/index.html">Cadapio</a>
     <a href="../Mesa/index.html">Mesa</a>
-    <a href="../comanda/index.html">Pedido de Cozinha</a>
+    <a href="../comanda/index.html">Comanda</a>
     </nav>
     `;
     const btnFecharNavegar = document.querySelector(".btn_fecharnavegar");
