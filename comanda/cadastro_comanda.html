@@ -1,45 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../comanda/styles.css">
+    <title>Cadastro Comanda</title>
+    <link rel="stylesheet" href="styles_cadastro_comanda.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<header>
-    <div class="header-content">
-        <img class="logo" src="../Imagemlogo/Logo-removebg-preview.png" alt="">
+<body>
 
-    </div>
-    <div>
-
-        <h1 class="title">Cadastro Comanda</h1>
-    </div>
-</header>
-<main>
-    <div class="container">
-        <div class="inputs_cadastro">
-            <div class="input_group">
-                <label for="nomeCliente">Nome do Cliente:</label>
-                <input type="text" id="nomeCliente" name="nomeCliente" required>
-            </div>
-            <div class="input_group">
-                <label for="numeroMesa">Número da Mesa:</label>
-                <input type="number" id="numeroMesa" name="numeroMesa" required>
-            </div>
-            <div class="input_group">
-                <button class="btn_salvarcomanda">Salvar Comanda</button>
-            </div>
-
+    <header class="topo">
+        <div class="header-content">
+            <img class="logo" src="../Imagemlogo/Logo-removebg-preview.png" alt="Logo">
         </div>
-    </div>
-</main>
+        <h1 class="tituloTopo">Cadastro Comanda</h1>
+    </header>
 
+    <main class="conteudoCentral">
+        <div class="container">
+            <div class="inputs_cadastro">
 
-<script type="module" src="../comanda/script.js"></script>
+                <div class="input_group">
+                    <label for="nomeCliente">Nome do Cliente:</label>
+                    <input type="text" id="nomeCliente" required>
+                </div>
+
+                <div class="input_group">
+                    <label for="numeroMesa">Número da Mesa:</label>
+                    <select id="numeroMesa" required></select>
+                </div>
+
+                <div class="input_group">
+                    <label for="itens">Itens:</label>
+                    <select id="itens"></select>
+
+                </div>
+
+                <div class="input_group">
+                    <button class="btn_salvarcomanda">Salvar Comanda</button>
+                    <button class="btn_cancelar">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="cadastroComandaModal" class="modal"></div>
+
+    <script type="module" src="cadastro_comanda.js"></script>
 </body>
 
 </html>
