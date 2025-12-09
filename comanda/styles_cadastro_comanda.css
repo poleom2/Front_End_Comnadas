@@ -122,6 +122,24 @@ input {
     color: #083b66;
 }
 
+.btn_cancelar {
+    margin-top: 20px;
+    align-self: center;
+    padding: 12px 40px;
+    background-color: transparent;
+    border: 2px solid #d1b06a;
+    border-radius: 10px;
+    color: #d1b06a;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn_cancelar:hover {
+    background-color: #d1b06a;
+    color: #083b66;
+}
+
 select {
 
     padding: 10px;
