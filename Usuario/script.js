@@ -123,7 +123,7 @@ function openNovoUsuario() {
             senha: senha
         };
         try {
-            const response = await fetch(`${baseUrl}api/Usuario`, {
+            const response = await fetch(`https://localhost:7004/api/Usuario`, {
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify(novoUsuario)
@@ -154,7 +154,7 @@ async function removerUsuario(element, removeBtn) {
 
     try {
 
-        const deleteResponse = await fetch(`${baseUrl}api/Usuario/${element.id}`, {
+        const deleteResponse = await fetch(`https://localhost:7004/api/Usuario/${element.id}`, {
             method: "DELETE",
             headers: headers,
         });
@@ -185,30 +185,28 @@ async function removerUsuario(element, removeBtn) {
 }
 
 listarUsuarios();
-function Modal_DeNavegacao()
-{
+function Modal_DeNavegacao() {
 
-const botondenavegar = document.createElement("button")
-botondenavegar.classList.add("botondenavegar")
-const ModalNavegacao = document.querySelector(".ModalNavegacao")
+    const botondenavegar = document.createElement("button")
+    botondenavegar.classList.add("botondenavegar")
+    const ModalNavegacao = document.querySelector(".ModalNavegacao")
 
-botondenavegar.innerHTML=`
+    botondenavegar.innerHTML = `
 <button class="btn_navegar">
 <i class="fa-solid fa-bars"></i>
 </button>
 `;
-ModalNavegacao.appendChild(botondenavegar)
+    ModalNavegacao.appendChild(botondenavegar)
 
-const btnNavegar = document.querySelector(".btn_navegar")
- btnNavegar.addEventListener("click", ()=>
- {
-    Modalnavegar();
-})
+    const btnNavegar = document.querySelector(".btn_navegar")
+    btnNavegar.addEventListener("click", () => {
+        Modalnavegar();
+    })
 }
 Modal_DeNavegacao();
 function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
-      const botao = document.querySelector("btnNavegar");
+    const botao = document.querySelector("btnNavegar");
     ModalNavegacao.innerHTML = `
     <nav class="navegacao_links">
     <button class="btn_fecharnavegar">&times;</button>
