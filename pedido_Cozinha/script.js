@@ -20,7 +20,7 @@ async function Lista_PedidosCozinha() {
         <ul id="${element.id}">
         
         </ul>
-        <button class="remuve id="${element.id}-remuve">
+        <button class="remuve id="${element.id}">
 
             <i class="fa-solid fa-trash"></i>
            
@@ -29,6 +29,7 @@ async function Lista_PedidosCozinha() {
         
         
         `;
+
         pedido = element
         const ul = document.getElementById(element.id)
         element.items.forEach(items => {
@@ -44,41 +45,58 @@ async function Lista_PedidosCozinha() {
             `;
         });
     });
+    const button_delete = Number(document.getElementById(pedido.id))
 
-    const deletepz = document.getElementById(`${element.id}-remuve`);
 
-    deletepz.addEventListener('click', async () => {
+    button_delete.addEventListener('click', async () => {
         const element_delete = element.id;
         console.log("Tentando excluir pedido:", element_delete);
+        deletepz.addEventListener('click', async () => {
+            const element_delete = element.id;
+            console.log("Tentando excluir pedido:", element_delete);
 
-        const response = await fetch(`${baseUrl}/api/PedidoCozinha/${element_delete}`, {
-            method: "DELETE",
-            headers: headers,
-        }
-        );
-
-        if (response.ok) {
-            console.log("Pedido excluído com sucesso!");
-
-            // Remove o elemento do DOM (por exemplo, a linha da tabela ou card do pedido)
-
-            const numeromesa = document.querySelector(".lista")
-            if (pedidoElement) {
-
-                numeromesa.remove();
-
-                console.log("Elemento removido da interface.");
-
+            const response = await fetch(`${baseUrl}/api/PedidoCozinha/${element_delete}`, {
+                method: "DELETE",
+                headers: headers,
             }
-        } else {
-            console.error("Erro ao excluir pedido:", response.status);
+            );
+
+            if (response.ok) {
+                console.log("Pedido excluído com sucesso!");
+
+                // Remove o elemento do DOM (por exemplo, a linha da tabela ou card do pedido)
+                const pedidoElement = document.getElementById(pedido.id)
+                const numeromesa = document.querySelector(".lista")
+                if (pedidoElement) {
+
+                    numeromesa.remove();
+
+                    console.log("Elemento removido da interface.");
+
+                }
+            } else {
+                console.error("Erro ao excluir pedido:", response.status);
+            }
+        });
+        // Remove o elemento do DOM (por exemplo, a linha da tabela ou card do pedido)
+
+        const numeromesa = document.querySelector(".lista")
+        if (pedidoElement) {
+
+            numeromesa.remove();
+
+            console.log("Elemento removido da interface.");
+
         }
+    } else {
+        console.error("Erro ao excluir pedido:", response.status);
+    }
     });
 
-    const vermaisbtn = document.querySelector(".vermais")
-    vermaisbtn.addEventListener('click', () => {
-        vermais(pedido)
-    })
+const vermaisbtn = document.querySelector(".vermais")
+vermaisbtn.addEventListener('click', () => {
+    vermais(pedido)
+})
 
 }
 Lista_PedidosCozinha();
