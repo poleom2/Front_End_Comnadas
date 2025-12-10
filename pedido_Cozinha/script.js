@@ -20,6 +20,11 @@ async function Lista_PedidosCozinha() {
         <ul id="${element.id}">
         
         </ul>
+        <button class="remuve id="${element.id}-remuve">
+
+            <i class="fa-solid fa-trash"></i>
+           
+       </button>
         </div>
         
         
@@ -30,12 +35,8 @@ async function Lista_PedidosCozinha() {
             ul.innerHTML += `
               <li>
                 <h3>${items.titulo}</h3>
-                 <button class="vermais">
+                 <button class="vermais ">
                     <i class="fa-solid fa-list-ul"></i>
-                   
-               </button>
-                <button class="remuve">
-                    <i class="fa-solid fa-trash"></i>
                    
                </button>
                     
@@ -43,6 +44,37 @@ async function Lista_PedidosCozinha() {
             `;
         });
     });
+
+    const deletepz = document.getElementById(`${element.id}-remuve`);
+
+    deletepz.addEventListener('click', async () => {
+        const element_delete = element.id;
+        console.log("Tentando excluir pedido:", element_delete);
+
+        const response = await fetch(`${baseUrl}/api/PedidoCozinha/${element_delete}`, {
+            method: "DELETE",
+            headers: headers,
+        }
+        );
+
+        if (response.ok) {
+            console.log("Pedido excluído com sucesso!");
+
+            // Remove o elemento do DOM (por exemplo, a linha da tabela ou card do pedido)
+
+            const numeromesa = document.querySelector(".lista")
+            if (pedidoElement) {
+
+                numeromesa.remove();
+
+                console.log("Elemento removido da interface.");
+
+            }
+        } else {
+            console.error("Erro ao excluir pedido:", response.status);
+        }
+    });
+
     const vermaisbtn = document.querySelector(".vermais")
     vermaisbtn.addEventListener('click', () => {
         vermais(pedido)
@@ -59,6 +91,8 @@ async function vermais(element) {
         
         </select>
     `
+
+
 }
 
 

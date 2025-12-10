@@ -94,7 +94,7 @@ export async function openModalEdit(element) {
 
 
         modal.style.display = 'none';
-        // window.location.reload()
+         window.location.reload()
 
     });
 }
