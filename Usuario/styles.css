@@ -47,8 +47,21 @@ main {
     padding: 24px;
 }
 
+.btn_novousuario {
+    padding: 12px 24px;
+    border: #957C3D 2px solid;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn_novousuario:hover {
+    background-color: #957C3D;
+    color: white;
+}
+
 .usuario {
-    border: 1px solid #fbf9f9;
+    border: 2px solid #957C3D;
     border-radius: 8px;
 
     padding: 16px;
@@ -70,6 +83,20 @@ main {
 .usuario span,
 .usuario button {
     min-width: max-content;
+}
+
+.usuario button {
+    padding: 7px 10px;
+
+    border: #957C3D 2px solid;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.usuario button:hover {
+    background-color: #957C3D;
+    color: white;
 }
 
 .ul {
@@ -194,38 +221,45 @@ main {
     border: none;
     cursor: pointer;
 }
-   .navegacao_links {
+
+.navegacao_links {
 
     display: flex;
     flex-direction: column;
     gap: 32px;
     color: #957C3D;
     cursor: pointer;
-  position: absolute;
-  left: 0;
-  top: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
     width: 10%;
 
 }
+
 .navegacao_links a {
     text-decoration: none;
     color: #957C3D;
     font-size: 16px;
 }
+
 .btn_navegar {
     position: absolute;
     left: 0;
     top: 50%;
     width: 40px;
     height: 40px;
-    background-color: #957C3D;
-    border: none;
+    border: #957C3D 2px solid;
     border-radius: 50%;
     cursor: pointer;
-        color: white;
-    
+    color: white;
 }
-.btn_fecharnavegar{
+
+.btn_navegar:hover {
+    background-color: #957C3D;
+    color: white;
+}
+
+.btn_fecharnavegar {
     position: absolute;
     right: 0;
     top: 0px;

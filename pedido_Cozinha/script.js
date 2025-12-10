@@ -3,19 +3,16 @@ const baseUrl = "https://localhost:7004";
 const headers = {
     "Content-Type": "application/json"
 };
-async function Lista_PedidosCozinha()
-{
-    const response = await fetch (`${baseUrl}/api/PedidoCozinha`);
+async function Lista_PedidosCozinha() {
+    const response = await fetch(`${baseUrl}/api/PedidoCozinha`);
     const pedidosCozinha = await response.json();
-  
+
     console.log(pedidosCozinha)
     const modal = document.querySelector(".modal");
     const pedidosContainer = document.createElement("div");
     pedidosContainer.classList.add("pedidos_container");
     modal.appendChild(pedidosContainer);
- 
-    let pedido=""
-
+    let pedido = ""
     pedidosCozinha.forEach(element => {
         pedidosContainer.innerHTML += `
         <div class="lista">
@@ -32,12 +29,10 @@ async function Lista_PedidosCozinha()
         
         
         `;
-        
-       
-        pedido=element
-        const ul =document.getElementById(element.id)
-          element.items.forEach(items => {
-              ul.innerHTML += `
+        pedido = element
+        const ul = document.getElementById(element.id)
+        element.items.forEach(items => {
+            ul.innerHTML += `
               <li>
                 <h3>${items.titulo}</h3>
                  <button class="vermais ">
@@ -47,7 +42,7 @@ async function Lista_PedidosCozinha()
                     
                 </li>
             `;
-    });
+        });
     });
 
     const deletepz = document.getElementById(`${element.id}-remuve`);
@@ -82,12 +77,12 @@ async function Lista_PedidosCozinha()
 
     const vermaisbtn = document.querySelector(".vermais")
     vermaisbtn.addEventListener('click', () => {
-          vermais(pedido)
+        vermais(pedido)
     })
-    
+
 }
 Lista_PedidosCozinha();
-async function  vermais(element){
+async function vermais(element) {
     const modal = document.querySelector(".modal_vermais")
     modal.innerHTML = `
       <label for="comandaid">${element.id}</label>
@@ -104,32 +99,28 @@ async function  vermais(element){
 
 
 
+function Modal_DeNavegacao() {
 
+    const botondenavegar = document.createElement("button")
+    botondenavegar.classList.add("botondenavegar")
+    const ModalNavegacao = document.querySelector(".ModalNavegacao")
 
-function Modal_DeNavegacao()
-{
-
-const botondenavegar = document.createElement("button")
-botondenavegar.classList.add("botondenavegar")
-const ModalNavegacao = document.querySelector(".ModalNavegacao")
-
-botondenavegar.innerHTML=`
+    botondenavegar.innerHTML = `
 <button class="btn_navegar">
 <i class="fa-solid fa-bars"></i>
 </button>
 `;
-ModalNavegacao.appendChild(botondenavegar)
+    ModalNavegacao.appendChild(botondenavegar)
 
-const btnNavegar = document.querySelector(".btn_navegar")
- btnNavegar.addEventListener("click", ()=>
- {
-    Modalnavegar();
-})
+    const btnNavegar = document.querySelector(".btn_navegar")
+    btnNavegar.addEventListener("click", () => {
+        Modalnavegar();
+    })
 }
 Modal_DeNavegacao();
 function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
-      const botao = document.querySelector("btnNavegar");
+    const botao = document.querySelector("btnNavegar");
     ModalNavegacao.innerHTML = `
     <nav class="navegacao_links">
     <button class="btn_fecharnavegar">&times;</button>
