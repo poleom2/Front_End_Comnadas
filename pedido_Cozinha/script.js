@@ -25,6 +25,11 @@ async function Lista_PedidosCozinha() {
             <i class="fa-solid fa-trash"></i>
            
        </button>
+        <button class="remuve id="${element.id}">
+
+            <i class="fa-solid fa-trash"></i>
+           
+       </button>
         </div>
         
         
@@ -36,6 +41,7 @@ async function Lista_PedidosCozinha() {
             ul.innerHTML += `
               <li>
                 <h3>${items.titulo}</h3>
+                 <button class="vermais ">
                  <button class="vermais ">
                     <i class="fa-solid fa-list-ul"></i>
                    
@@ -109,6 +115,8 @@ async function vermais(element) {
         
         </select>
     `
+
+
 
 
 }
