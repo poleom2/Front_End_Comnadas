@@ -133,7 +133,7 @@ function openNovoCardapio() {
         console.log(salvarCardapio);
         // window.location.reload()
          modal_Novocardarpio.style.display = "none"
-        window.location.reload();
+        // window.location.reload();
     })
 
 }
