@@ -13,6 +13,9 @@ async function Lista_PedidosCozinha() {
     pedidosContainer.classList.add("pedidos_container");
     modal.appendChild(pedidosContainer);
     let pedido = ""
+
+    let pedido = ""
+
     pedidosCozinha.forEach(element => {
         pedidosContainer.innerHTML += `
         <div class="lista">
@@ -21,6 +24,11 @@ async function Lista_PedidosCozinha() {
         
         </ul>
         <button class="remuve id="${element.id}">
+
+            <i class="fa-solid fa-trash"></i>
+           
+       </button>
+        <button class="remuve id="${element.id}-remuve">
 
             <i class="fa-solid fa-trash"></i>
            
@@ -34,8 +42,15 @@ async function Lista_PedidosCozinha() {
         const ul = document.getElementById(element.id)
         element.items.forEach(items => {
             ul.innerHTML += `
-              <li>
+        
+       
+        pedido=element
+        const ul =document.getElementById(element.id)
+          element.items.forEach(items => {
+              ul.innerHTML += `
+                < li >
                 <h3>${items.titulo}</h3>
+                 <button class="vermais ">
                  <button class="vermais ">
                     <i class="fa-solid fa-list-ul"></i>
                    
@@ -55,7 +70,7 @@ async function Lista_PedidosCozinha() {
             const element_delete = element.id;
             console.log("Tentando excluir pedido:", element_delete);
 
-            const response = await fetch(`${baseUrl}/api/PedidoCozinha/${element_delete}`, {
+            const response = await fetch(`${ baseUrl } /api/PedidoCozinha / ${ element_delete } `, {
                 method: "DELETE",
                 headers: headers,
             }
@@ -98,20 +113,60 @@ vermaisbtn.addEventListener('click', () => {
     vermais(pedido)
 })
 
+
+    const deletepz = document.getElementById(`${ element.id } -remuve`);
+
+    deletepz.addEventListener('click', async () => {
+    const element_delete = element.id;
+    console.log("Tentando excluir pedido:", element_delete);
+
+    const response = await fetch(`${ baseUrl } /api/PedidoCozinha / ${ element_delete } `, {
+        method: "DELETE",
+        headers: headers,
+    }
+);
+
+    if (response.ok) {
+        console.log("Pedido excluído com sucesso!");
+
+        // Remove o elemento do DOM (por exemplo, a linha da tabela ou card do pedido)
+        
+        const numeromesa= document.querySelector(".lista")
+        if (pedidoElement) {
+           
+            numeromesa.remove();
+            
+            console.log("Elemento removido da interface.");
+         
+        }
+    } else {
+        console.error("Erro ao excluir pedido:", response.status);
+    }
+});
+
+    const vermaisbtn = document.querySelector(".vermais")
+    vermaisbtn.addEventListener('click', () => {
+          vermais(pedido)
+    })
+    
 }
 Lista_PedidosCozinha();
 async function vermais(element) {
     const modal = document.querySelector(".modal_vermais")
     modal.innerHTML = `
-      <label for="comandaid">${element.id}</label>
+                < label for= "comandaid" > ${ element.id }</label >
         <label for="numeroMesa">${element.numeroMesa}</label>
         <select>
         
         </select>
-    `
+            `
+
+
 
 
 }
+
+
 
 
 
@@ -124,10 +179,10 @@ function Modal_DeNavegacao() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao")
 
     botondenavegar.innerHTML = `
-<button class="btn_navegar">
-<i class="fa-solid fa-bars"></i>
-</button>
-`;
+                < button class="btn_navegar" >
+                    <i class="fa-solid fa-bars"></i>
+</button >
+                `;
     ModalNavegacao.appendChild(botondenavegar)
 
     const btnNavegar = document.querySelector(".btn_navegar")
@@ -140,14 +195,14 @@ function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
     const botao = document.querySelector("btnNavegar");
     ModalNavegacao.innerHTML = `
-    <nav class="navegacao_links">
+                < nav class="navegacao_links" >
     <button class="btn_fecharnavegar">&times;</button>
     <a href="../Home/index.html">Home</a>
     <a href="../Cardapio/index.html">Cadapio</a>
     <a href="../Mesa/index.html">Mesa</a>
     <a href="../comanda/index.html">Comanda</a>
-    </nav>
-    `;
+    </nav >
+                `;
     const btnFecharNavegar = document.querySelector(".btn_fecharnavegar");
     btnFecharNavegar.addEventListener("click", () => {
 
