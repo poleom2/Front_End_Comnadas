@@ -117,6 +117,9 @@ main {
     z-index: 1000;
     display: none;
     max-width: 90%;
+    border: #957C3D 2px solid;
+    padding: 12px;
+    border-radius: 8px;
 }
 
 .modal-conteudo {
@@ -171,7 +174,7 @@ main {
     border: none;
     cursor: pointer;
     padding: 8px 16px;
-    background-color: #af2dc9;
+    background-color: #957C3B;
     color: white;
     border: none;
     border-radius: 4px;
@@ -212,6 +215,7 @@ main {
     justify-items: autoS;
     padding: 24px;
     position: relative;
+
 }
 
 .modal_Novo_cardapio input {
@@ -227,8 +231,8 @@ main {
 
 .modal_Novo_cardapio .modal_fechar {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 3px;
+    top: 3px;
     border: none;
     cursor: pointer;
 }

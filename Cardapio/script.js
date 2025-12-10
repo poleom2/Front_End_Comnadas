@@ -78,10 +78,15 @@ function openNovoCardapio() {
     modal_Novocardarpio.innerHTML = `
     <div class="modal_Novo_cardapio">
         <span class="modal_fechar">&times;</span>
+        <label for="_description">Descrição:</label>
         <input type="text" id="_description" placeholder="Descrição">
+        <label for="_Imagem">Imagem URL:</label>
         <input type="text" id="_Imagem" placeholder="Imagem URL" >
+        <label for="_preco">Preço:</label>
         <input type="number" id="_preco" placeholder="Preço" >
+        <label for="_titulo">Titulo:</label>
         <input type="text" id="_titulo"  placeholder="Titulo" >
+
         <label for= "_Pussui_preparo">Possui Preparo </label>
         <input type="checkbox" id="_Pussui_preparo">
 
