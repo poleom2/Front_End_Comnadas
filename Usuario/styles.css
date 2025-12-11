@@ -116,6 +116,7 @@ main {
     z-index: 1000;
     display: none;
     max-width: 90%;
+    border: #957C3D solid 2px;
 }
 
 .modal-conteudo {

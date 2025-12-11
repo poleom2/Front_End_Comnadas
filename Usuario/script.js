@@ -82,8 +82,31 @@ async function listarUsuarios() {
 
 // modal de novo usuário
 function openNovoUsuario() {
+    // Remover qualquer backdrop existente
+    const existingBackdrop = document.querySelector('.modal-backdrop');
+    if (existingBackdrop) {
+        document.body.removeChild(existingBackdrop);
+    }
+
+    // Criar o backdrop escuro
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('modal-backdrop');
+    backdrop.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75); 
+        z-index: 999; 
+    `;
+    document.body.appendChild(backdrop);
+
     const modal = document.querySelector(".modal");
     modal.classList.add('modal_novousuario');
+    modal.style.cssText += `
+        z-index: 1000; /* Acima do backdrop */
+    `;
     modal.style.display = 'block';
     modal.innerHTML = `
         <div class="modal_Novo_usuario">
@@ -102,6 +125,7 @@ function openNovoUsuario() {
     const fechar = modal.querySelector(".modal_fechar");
     fechar.addEventListener('click', () => {
         modal.style.display = 'none';
+        document.body.removeChild(backdrop);
     });
 
     // Salvar 
@@ -131,6 +155,7 @@ function openNovoUsuario() {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             alert("Usuário criado com sucesso!");
             modal.style.display = 'none';
+            document.body.removeChild(backdrop);
             listarUsuarios();
         } catch (error) {
             console.error("Erro ao criar usuário:", error);
@@ -183,6 +208,7 @@ async function removerUsuario(element, removeBtn) {
         }
     }
 }
+
 
 listarUsuarios();
 function Modal_DeNavegacao() {

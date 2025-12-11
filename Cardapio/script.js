@@ -16,8 +16,6 @@ async function listarCardapio() {
     const respsta = await fetch("https://localhost:7004/api/CardapioItem", {
         headers: heders
     })
-    // const cardapio = list
-
 
     const cardapio = await respsta.json()
     console.log(cardapio)
@@ -46,27 +44,26 @@ async function listarCardapio() {
         const vermaisBtn = li.querySelector('.cardapio_vermais');
         vermaisBtn.addEventListener('click', () => {
             openModalDesc(element);
-        }
-        );
-
+        });
 
         ul.appendChild(li)
 
-
         const remuve = document.getElementById(`${element.id}-remuve`)
         remuve.addEventListener('click', async (event) => {
+
+            // 🔥 ADIÇÃO: Confirmação antes de excluir
+            const confirmar = confirm("Tem certeza que deseja excluir este item?");
+            if (!confirmar) return;
+
             const cardapioId = element.id
             console.log(cardapioId)
             await fetch(`https://localhost:7004/api/CardapioItem/${cardapioId}`, {
                 method: "DELETE",
                 headers: heders,
-
             })
             ul.removeChild(li)
-
         })
     })
-
 }
 listarCardapio();
 
@@ -170,8 +167,6 @@ function Modal_DeNavegacao() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao")
     ModalNavegacao.appendChild(botondenavegar)
 
-
-
     botondenavegar.innerHTML = `
 <button class="btn_navegar">
 <i class="fa-solid fa-bars"></i>
@@ -184,6 +179,7 @@ function Modal_DeNavegacao() {
     })
 }
 Modal_DeNavegacao();
+
 function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
     const botao = document.querySelector("btnNavegar");
@@ -203,5 +199,6 @@ function Modalnavegar() {
         window.location.reload();
     });
 }
+
 
 
