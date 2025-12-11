@@ -1,12 +1,34 @@
-// import { listarCardapio } from "../Cardapio/script.js";
 const baseUrl = "https://localhost:7004"
 const heders = {
     "Content-Type": "application/json "
 }
 export function openModalDesc(element) {
-    //abri o modal 1
+
+    const existingBackdrop = document.querySelector('.modal-backdrop');
+    if (existingBackdrop) {
+        document.body.removeChild(existingBackdrop);
+    }
+
+
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('modal-backdrop');
+    backdrop.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75);
+        z-index: 999; 
+    `;
+    document.body.appendChild(backdrop);
+
+
     console.log("Modal de descrição aberto");
     const modal = document.querySelector('.modal');
+    modal.style.cssText += `
+        z-index: 1000; /* Acima do backdrop */
+    `;
     modal.style.display = 'block';
     modal.innerHTML = `
     <div class="modal-conteudo">
@@ -26,14 +48,37 @@ export function openModalDesc(element) {
 
     fecharBtn.addEventListener('click', (event) => {
         modal.style.display = 'none';
-
+        document.body.removeChild(backdrop);
 
     });
 }
 
 export async function openModalEdit(element) {
+
+    const existingBackdrop = document.querySelector('.modal-backdrop');
+    if (existingBackdrop) {
+        document.body.removeChild(existingBackdrop);
+    }
+
+
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('modal-backdrop');
+    backdrop.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75); 
+        z-index: 999; 
+    `;
+    document.body.appendChild(backdrop);
+
     const modal = document.querySelector('.modal');
     modal.classList.add('modal_edit');
+    modal.style.cssText += `
+        z-index: 1000; 
+    `;
     modal.innerHTML = `
     <div class="modal_conteudo_editar">
         <span class="modal_fechar">&times;</span>
@@ -62,21 +107,22 @@ export async function openModalEdit(element) {
 
     fecharBtn.addEventListener('click', (event) => {
         modal.style.display = 'none';
+        document.body.removeChild(backdrop);
     });
     const modal_salvar = modal.querySelector('.modal_salvar');
-    
-    
+
+
     modal_salvar.addEventListener('click', async (event) => {
         let tipo = ""
         let categoriaCardapioId = 0
-            if(document.getElementById("tipo_lanche").checked){
-                tipo = document.getElementById("tipo_lanche").value
-                categoriaCardapioId=1
-            }else if(document.getElementById("tipo_pratos").checked){
-                tipo = 3
-            }else if(document.getElementById("tipo_bebidas").checked){
-                tipo = 2
-            }
+        if (document.getElementById("tipo_lanche").checked) {
+            tipo = document.getElementById("tipo_lanche").value
+            categoriaCardapioId = 1
+        } else if (document.getElementById("tipo_pratos").checked) {
+            tipo = 3
+        } else if (document.getElementById("tipo_bebidas").checked) {
+            tipo = 2
+        }
         const produtoUpdate = {
             titulo: document.querySelector("#edit_titulo").value,
             descricao: document.querySelector("#edit_description").value,
@@ -94,8 +140,8 @@ export async function openModalEdit(element) {
 
 
         modal.style.display = 'none';
-        // window.location.reload()
+        document.body.removeChild(backdrop);
+        window.location.reload()
 
     });
 }
-
