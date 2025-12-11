@@ -33,6 +33,7 @@ async function Lista_PedidosCozinha() {
         
         `;
 
+
         pedido = element
         const ul = document.getElementById(element.id)
         element.items.forEach(items => {
@@ -45,6 +46,8 @@ async function Lista_PedidosCozinha() {
               ul.innerHTML += `
                 < li >
                 <h3>${items.titulo}</h3>
+                 <button class="vermais ">
+                 <button class="vermais ">
                  <button class="vermais ">
                  <button class="vermais ">
                     <i class="fa-solid fa-list-ul"></i>
