@@ -1,151 +1,235 @@
+/* RESET E AJUSTES GERAIS */
 * {
     box-sizing: border-box;
-    box-shadow: none;
     text-decoration: none;
     list-style: none;
     border: none;
     outline: none;
     font-family: "Poppins", sans-serif;
-    background-color: #062e56;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-    color: #d1b06a;
-
-}
-
-header {
     background-color: #062e56;
-    padding: 10px 40px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    color: #d1b06a;
 }
 
-header .header-content {
+/* ============================ */
+/* CABEÇALHO */
+/* ============================ */
+header.topo {
+    background-color: #062e56;
+    padding: 15px 40px;
     display: flex;
     align-items: center;
-    width: 38%;
-}
-
-header .title {
-    text-align: center;
-    width: 100%;
-
+    gap: 25px;
 }
 
 .logo {
     width: 80px;
-    align-self: start;
 }
 
-
-.title {
-
-    text-align: center;
-    margin-right: 80px;
+.tituloTopo {
     font-size: 40px;
-    color: #d1b06a;
     font-weight: bold;
+    color: #d1b06a;
 }
 
-
-
-main {
+/* ============================ */
+/* CONTEÚDO CENTRAL */
+/* ============================ */
+.conteudoCentral {
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 .container {
-    width: 35%;
-    background-color: rgb(19 57 95);
-    box-shadow: #d1b06a 0px 0px 10px;
-    padding: 24px;
+    width: 38%;
+    background-color: #13395f;
+    box-shadow: 0 0 12px #d1b06a;
+    padding: 28px;
     border-radius: 12px;
-
 }
-
-
 
 .inputs_cadastro {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    background-color: rgb(19 57 95);
+    gap: 28px;
 }
 
+/* GRUPOS DE INPUT */
 .input_group {
     display: flex;
     flex-direction: column;
-    font-size: 20px;
-    color: #d1b06a;
-    background-color: rgb(19 57 95);
-
+    gap: 10px;
 }
 
 label {
-    margin-bottom: 8px;
-    background-color: rgb(19 57 95);
-}
-
-input {
-    padding: 10px;
-
-    font-size: 18px;
-    border-radius: 6px;
-    border: 2px solid #d1b06a;
-    background-color: rgb(19 57 95);
-    color: #fff;
-}
-
-
-
-.btn_salvarcomanda {
-    margin-top: 20px;
-    align-self: center;
-    padding: 12px 40px;
-    background-color: transparent;
-    border: 2px solid #d1b06a;
-    border-radius: 10px;
-    color: #d1b06a;
     font-size: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn_salvarcomanda:hover {
-    background-color: #d1b06a;
-    color: #083b66;
-}
-
-.btn_cancelar {
-    margin-top: 20px;
-    align-self: center;
-    padding: 12px 40px;
-    background-color: transparent;
-    border: 2px solid #d1b06a;
-    border-radius: 10px;
     color: #d1b06a;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.3s;
 }
 
-.btn_cancelar:hover {
-    background-color: #d1b06a;
-    color: #083b66;
-}
-
+/* ============================ */
+/* INPUTS E SELECTS */
+/* ============================ */
+input,
 select {
-
-    padding: 10px;
+    padding: 12px;
     font-size: 18px;
     border-radius: 6px;
     border: 2px solid #d1b06a;
+    background-color: #13395f;
     color: #fff;
-    background-color: rgb(19 57 95);
+    transition: .2s;
+}
+
+input:focus,
+select:focus {
+    border-color: #e8c97a;
+    box-shadow: 0 0 6px #d1b06a;
+}
+
+/* ============================ */
+/* BOTÕES */
+/* ============================ */
+.btn_salvarcomanda,
+.btn_cancelar,
+.btn_add_item,
+.btn_finalizar {
+    padding: 12px 40px;
+    background-color: transparent;
+    border: 2px solid #d1b06a;
+    border-radius: 10px;
+    color: #d1b06a;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn_salvarcomanda:hover,
+.btn_cancelar:hover,
+.btn_add_item:hover,
+.btn_finalizar:hover {
+    background-color: #d1b06a;
+    color: #083b66;
+}
+
+/* ============================ */
+/* MODAL */
+/* ============================ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 999;
+}
+
+/* CARD DO MODAL */
+.cadastro_comanda_modal {
+    background: #13395f;
+    padding: 25px;
+    border-radius: 12px;
+    width: 480px;
+    box-shadow: 0 0 14px #d1b06a;
+    position: relative;
+    animation: aparecer .25s ease-out;
+}
+
+/* ANIMAÇÃO */
+@keyframes aparecer {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* BOTÃO X DO MODAL */
+.cadastro_comanda_fechar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    color: #d1b06a;
+    cursor: pointer;
+}
+
+.cadastro_comanda_fechar:hover {
+    color: #ffffff;
+}
+
+/* FORMULÁRIO DO MODAL */
+.cadastro_comanda_conteudo h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d1b06a;
+}
+
+/* ============================ */
+/* LISTA DE ITENS NO MODAL */
+/* ============================ */
+#listaItensModal {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.item-linha {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.item-linha select {
+    flex: 1;
+}
+
+.item-linha .itemQuantidade {
+    width: 80px;
+}
+
+/* BOTÃO DE REMOVER ITEM */
+.btn_remover_item {
+    background: #b71c1c !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn_remover_item:hover {
+    background: #ff4444 !important;
+}
+
+/* ============================ */
+/* RESPONSIVIDADE */
+/* ============================ */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .cadastro_comanda_modal {
+        width: 94%;
+    }
+
+    .tituloTopo {
+        font-size: 32px;
+    }
 }

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Comanda</title>
     <link rel="stylesheet" href="styles_cadastro_comanda.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -32,14 +31,20 @@
                     <select id="numeroMesa" required></select>
                 </div>
 
+                <!-- AREA DOS ITENS -->
                 <div class="input_group">
-                    <label for="itens">Itens:</label>
-                    <select id="itens"></select>
+                    <label>Itens:</label>
 
+                    <div class="itens-card">
+                        <button id="btnAddItem" type="button" class="btn_add_item">+ Adicionar Item</button>
+
+                        <div id="listaItens"></div>
+                    </div>
                 </div>
 
-                <div class="input_group">
-                    <button class="btn_salvarcomanda">Salvar Comanda</button>
+                <!-- BOTÕES -->
+                <div class="input_group botoes_final">
+                    <button class="btn_salvarcomanda" id="btnSalvar">Salvar Comanda</button>
                     <button class="btn_cancelar">Cancelar</button>
                 </div>
 
@@ -47,9 +52,141 @@
         </div>
     </main>
 
-    <div id="cadastroComandaModal" class="modal"></div>
+    <!-- SCRIPT -->
+    <script>
+        const baseUrl = "https://localhost:7004";
+        const headers = { "Content-Type": "application/json" };
 
-    <script type="module" src="cadastro_comanda.js"></script>
+        function $(s) { return document.querySelector(s); }
+
+        // -------------------------------------
+        // 1. Carregar Mesas
+        // -------------------------------------
+        async function carregarMesasPagina() {
+            const selectMesa = $("#numeroMesa");
+            if (!selectMesa) return;
+
+            try {
+                const response = await fetch(`${baseUrl}/api/Mesa`, { headers });
+                if (!response.ok) throw new Error();
+                const mesas = await response.json();
+
+                mesas.forEach(mesa => {
+                    if (mesa.situacaoMesa === 0) {
+                        selectMesa.insertAdjacentHTML("beforeend",
+                            `<option value="${mesa.numeroMesa}">${mesa.numeroMesa}</option>`);
+                    }
+                });
+
+            } catch (error) {
+                console.error("Erro ao carregar mesas:", error);
+            }
+        }
+
+        // -------------------------------------
+        // 2. Carregar Itens do Cardápio
+        // -------------------------------------
+        async function carregarItens() {
+            try {
+                const resp = await fetch(`${baseUrl}/api/CardapioItem`, { headers });
+                if (!resp.ok) throw new Error();
+                return await resp.json();
+            } catch {
+                alert("Erro ao carregar itens do cardápio.");
+                return [];
+            }
+        }
+
+        // -------------------------------------
+        // 3. Criar linha dinâmica de item
+        // -------------------------------------
+        function criarLinhaItem(itens) {
+            const linha = document.createElement("div");
+            linha.classList.add("item-linha");
+
+            linha.innerHTML = `
+                <select class="itemSelect" required>
+                    <option value="">Selecione</option>
+                    ${itens.map(i => `<option value="${i.id}">${i.titulo}</option>`).join("")}
+                </select>
+
+                <input type="number" class="itemQuantidade" min="1" value="1" required>
+
+                <button type="button" class="btn_remover_item">X</button>
+            `;
+
+            // remover item
+            linha.querySelector(".btn_remover_item").onclick = () => linha.remove();
+
+            return linha;
+        }
+
+        // -------------------------------------
+        // 4. Iniciar página
+        // -------------------------------------
+        async function iniciar() {
+            await carregarMesasPagina();
+
+            const itensCardapio = await carregarItens();
+
+            // CLICK DO BOTÃO ADICIONAR ITEM
+            const btnAddItem = $("#btnAddItem");
+            if (!btnAddItem) {
+                console.error("BOTÃO NÃO ENCONTRADO: #btnAddItem");
+                return;
+            }
+
+            btnAddItem.onclick = () => {
+                $("#listaItens").appendChild(criarLinhaItem(itensCardapio));
+            };
+
+            // adiciona 1 item inicial
+            btnAddItem.click();
+
+            // -----------------------------------
+            // 5. Salvar comanda
+            // -----------------------------------
+            $("#btnSalvar").onclick = async () => {
+                const nomeCliente = $("#nomeCliente").value.trim();
+                const numeroMesa = $("#numeroMesa").value;
+
+                if (!nomeCliente || !numeroMesa) {
+                    alert("Preencha nome e mesa.");
+                    return;
+                }
+
+                const itensSelecionados = [...document.querySelectorAll(".item-linha")].map(linha => ({
+                    idItem: linha.querySelector(".itemSelect").value,
+                    quantidade: linha.querySelector(".itemQuantidade").value
+                }));
+
+                const payload = {
+                    nomeCliente,
+                    numeroMesa,
+                    itens: itensSelecionados
+                };
+
+                console.log("Enviando payload:", payload);
+
+                try {
+                    const resp = await fetch(`${baseUrl}/api/Comanda`, {
+                        method: "POST",
+                        headers,
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!resp.ok) throw new Error();
+
+                    alert("Comanda salva com sucesso!");
+                } catch {
+                    alert("Erro ao salvar comanda.");
+                }
+            };
+        }
+
+        iniciar();
+    </script>
+
 </body>
 
 </html>

@@ -1,213 +1,152 @@
-const baseUrl = "https://localhost:7004";
-const headers = { "Content-Type": "application/json" };
-const $ = (sel) => document.querySelector(sel);
+document.addEventListener("DOMContentLoaded", () => {
 
+    const baseUrl = "https://localhost:7004";
+    const headers = { "Content-Type": "application/json" };
+    const $ = (sel) => document.querySelector(sel);
 
-async function carregarMesasPagina() {
-    const selectMesa = $("#numeroMesa");
-    if (!selectMesa) return;
-
-    try {
-        const response = await fetch(`${baseUrl}/api/Mesa`, { headers });
-        const mesas = await response.json();
-
-        mesas.forEach(mesa => {
-            if (mesa.situacaoMesa === 0) {
-                selectMesa.insertAdjacentHTML(
-                    "beforeend",
-                    `<option value="${mesa.numeroMesa}">${mesa.numeroMesa}</option>`
-                );
-            }
-        });
-    } catch (error) {
-        console.error("Erro ao carregar mesas:", error);
-    }
-}
-
-async function carregarItensPagina() {
-    const selectItens = $("#itens");
-    if (!selectItens) return;
-
-    try {
-        const responseItens = await fetch(`https://localhost:7004/api/CardapioItem`, { headers });
-        const itens = await responseItens.json();
-
-
-        itens.forEach(item => {
-            selectItens.insertAdjacentHTML(
-                "beforeend",
-                `<option value="${item.id}">${item.titulo}</option>`
-            );
-        });
-    } catch (error) {
-        console.error("Erro ao carregar itens:", error);
-    }
-}
-
-const btnCancelar = $(".btn_cancelar");
-if (btnCancelar) {
-    btnCancelar.addEventListener("click", () => {
-        window.location.href = "../comanda/index.html";
-    });
-}
-
-
-const btnSalvar = $(".btn_salvarcomanda");
-
-if (btnSalvar) {
-    btnSalvar.addEventListener("click", async () => {
-        const nomeCliente = $("#nomeCliente").value.trim();
-        const numeroMesa = $("#numeroMesa").value;
-        const itensSelecionados = [...$("#itens").selectedOptions].map(o => o.value);
-
-        if (!nomeCliente || !numeroMesa || itensSelecionados.length === 0 || numeroMesa === null) {
-            alert("Preencha todos os campos.");
-            return;
-        }
-
-        const novaComanda = { nomeCliente, numeroMesa: Number(numeroMesa), cardapioItemIds: itensSelecionados };
+    //
+    // ===================================
+    // CARREGAR MESAS NA PÁGINA PRINCIPAL
+    // ===================================
+    //
+    async function carregarMesasPagina() {
+        const selectMesa = $("#numeroMesa");
+        if (!selectMesa) return;
 
         try {
-            const responseSalvar = await fetch(`https://localhost:7004/api/Comanda`, {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(novaComanda)
+            const response = await fetch(`${baseUrl}/api/Mesa`, { headers });
+            if (!response.ok) throw new Error();
+            const mesas = await response.json();
+
+            mesas.forEach(mesa => {
+                if (mesa.situacaoMesa === 0) {
+                    selectMesa.insertAdjacentHTML(
+                        "beforeend",
+                        `<option value="${mesa.numeroMesa}">${mesa.numeroMesa}</option>`
+                    );
+                }
             });
 
-            if (!responseSalvar.ok) throw new Error();
+        } catch (error) {
+            console.error("Erro ao carregar mesas:", error);
+        }
+    }
 
-            alert("Comanda cadastrada com sucesso!");
+    //
+    // ===================================
+    // CARREGAR ITENS NA PÁGINA PRINCIPAL
+    // ===================================
+    //
+    async function carregarItensPagina() {
+        const selectItens = $("#itens");
+        if (!selectItens) return;
+
+        try {
+            const response = await fetch(`${baseUrl}/api/CardapioItem`, { headers });
+            if (!response.ok) throw new Error();
+            const itens = await response.json();
+
+            itens.forEach(item => {
+                selectItens.insertAdjacentHTML(
+                    "beforeend",
+                    `<option value="${item.id}">${item.titulo}</option>`
+                );
+            });
+
+        } catch (error) {
+            console.error("Erro ao carregar itens:", error);
+        }
+    }
+
+    //
+    // =======================
+    // BOTÃO CANCELAR
+    // =======================
+    //
+    const btnCancelar = $(".btn_cancelar");
+    if (btnCancelar) {
+        btnCancelar.addEventListener("click", () => {
             window.location.href = "../comanda/index.html";
-        } catch (e) {
-            alert("Falha ao cadastrar comanda.");
-        }
-    });
-}
+        });
+    }
 
+    //
+    // =======================
+    // SALVAR COMANDA
+    // =======================
+    const btnSalvar = $(".btn_salvarcomanda");
 
+    if (btnSalvar) {
+        console.log("Botão encontrado:", btnSalvar);
 
+        btnSalvar.addEventListener("click", async () => {
+            console.log("CLICOU NO BOTÃO SALVAR!");
 
-export async function openNovaComanda() {
+            try {
+                const nomeCliente = $("#nomeCliente").value.trim();
+                const numeroMesa = $("#numeroMesa").value;
 
-    const modal = $("#cadastroComandaModal");
-    modal.style.display = "block";
+                let itens = [];
 
-    modal.innerHTML = `
-        <div class="cadastro_comanda_modal">
-            <div class="cadastro_comanda_conteudo">
+                const selectItens = $("#itens");
+                if (selectItens && selectItens.selectedOptions.length > 0) {
+                    itens = [...selectItens.selectedOptions].map(o => ({
+                        id: Number(o.value),
+                        quantidade: 1
+                    }));
+                }
 
-                <button class="cadastro_comanda_fechar">&times;</button>
+                const linhas = [...document.querySelectorAll("#listaItensPage .item-linha")];
+                if (linhas.length > 0) {
+                    itens = linhas.map(l => {
+                        const id = Number(l.querySelector(".itemSelectPage")?.value || 0);
+                        const quantidade = Number(l.querySelector(".itemQuantidadePage")?.value || 1);
+                        return { id, quantidade };
+                    }).filter(x => x.id);
+                }
 
-                <h2>Cadastro de Nova Comanda</h2>
+                if (!nomeCliente || !numeroMesa || itens.length === 0) {
+                    alert("Preencha todos os campos e adicione pelo menos um item.");
+                    return;
+                }
 
-                <form id="cadastroComandaForm">
+                const novaComanda = {
+                    nomeCliente,
+                    numeroMesa: Number(numeroMesa),
+                    itens
+                };
 
-                    <label>Nome do Cliente:</label>
-                    <input type="text" id="nomeClienteModal" required>
+                console.log("Enviando payload:", JSON.stringify(novaComanda));
 
-                    <label>Número da Mesa:</label>
-                    <select id="numeroMesaModal" required></select>
+                const response = await fetch(`${baseUrl}/api/Comanda`, {
+                    method: "POST",
+                    headers,
+                    body: JSON.stringify(novaComanda),
+                });
 
-                    <label>Itens :</label>
-                    <select id="itensModal" multiple></select>
+                const text = await response.text();
 
-                    <button type="submit" class="btn_finalizar">Cadastrar Comanda</button>
-                    
-                </form>
+                if (!response.ok) {
+                    console.error("Erro salvar comanda:", response.status, text);
+                    let msg = text;
+                    try { msg = JSON.parse(text); } catch (e) { }
+                    alert("Erro ao cadastrar comanda: " + (msg.message || text || response.status));
+                    return;
+                }
 
-            </div>
-        </div>
-    `;
+                alert("Comanda cadastrada com sucesso!");
+                window.location.href = "../comanda/index.html";
 
-
-    $(".cadastro_comanda_fechar").onclick = () => (modal.style.display = "none");
-
-    $(".btn_cancelar").onclick = () => (
-        window.location.href = "../comanda/index.html"
-
-    );
-
-
-
-
-    $("#cadastroComandaForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const nomeCliente = $("#nomeClienteModal").value.trim();
-        const numeroMesa = $("#numeroMesaModal").value;
-        const itensSelecionados = [...$("#itensModal").selectedOptions].map(o => o.value);
-
-        const novaComanda = {
-            nomeCliente,
-            numeroMesa: Number(numeroMesa),
-            cardapioItemIds: itensSelecionados
-        };
-
-        try {
-            const resp = await fetch(`https://localhost:7004/api/Comanda`, {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(novaComanda)
-            });
-
-            if (!resp.ok) throw new Error();
-
-            alert("Comanda cadastrada com sucesso!");
-            modal.style.display = "none";
-            location.reload();
-
-        } catch {
-            alert("Erro ao cadastrar comanda.");
-        }
-    });
-
-
-
-
-    try {
-        const responseMesa = await fetch(`${baseUrl}/api/Mesa`, { headers });
-        const mesas = await responseMesa.json();
-
-        const selectMesa = $("#numeroMesaModal");
-
-        mesas.forEach(mesa => {
-            if (mesa.situacaoMesa === 0) {
-                selectMesa.insertAdjacentHTML(
-                    "beforeend",
-                    `<option value="${mesa.numeroMesa}">${mesa.numeroMesa}</option>`
-                );
+            } catch (err) {
+                console.error("Erro inesperado ao salvar comanda:", err);
+                alert("Erro inesperado ao salvar comanda. Veja o console (F12).");
             }
         });
-
-    } catch {
-        alert("Erro ao carregar mesas.");
+    } else {
+        console.error("Botão .btn_salvarcomanda NÃO encontrado no DOM!");
     }
 
+    carregarMesasPagina();
+    carregarItensPagina();
 
-
-    try {
-        const responseItens = await fetch(`https//api/ItensCardapio`, { headers });
-        const itens = await responseItens.json();
-
-        const selectItens = $("#itensModal");
-
-        itens.forEach(item => {
-            selectItens.insertAdjacentHTML(
-                "beforeend",
-                `<option value="${item.id}">${item.nomeItem}</option>`
-            );
-        });
-
-    } catch {
-        alert("Erro ao carregar itens do cardápio.");
-    }
-}
-
-
-//
-// ========== CARREGAR SELECTS DA PÁGINA AO ABRIR ==========
-//
-carregarMesasPagina();
-carregarItensPagina();
-
-
+});
