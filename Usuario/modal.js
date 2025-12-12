@@ -4,6 +4,26 @@ const headers = {
 };
 
 export function openModalEditar(element) {
+
+    const existingBackdrop = document.querySelector('.modal-backdrop');
+    if (existingBackdrop) {
+        document.body.removeChild(existingBackdrop);
+    }
+
+
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('modal-backdrop');
+    backdrop.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
+        z-index: 999; /* Abaixo do modal, mas acima do resto */
+    `;
+    document.body.appendChild(backdrop);
+
     console.log("Modal de edição aberto");
     const modal = document.querySelector('.modal');
     if (!modal) {
@@ -11,6 +31,9 @@ export function openModalEditar(element) {
         return;
     }
 
+    modal.style.cssText += `
+        z-index: 1000; /* Acima do backdrop */
+    `;
     modal.style.display = 'block';
     modal.innerHTML = `
         <div class="modal_conteudo_editar" role="dialog" aria-labelledby="modal-titulo">
@@ -47,7 +70,9 @@ export function openModalEditar(element) {
     validarEntradas();
 
     const fecharModal = () => {
+        console.log("Fechando modal");
         modal.style.display = 'none';
+        document.body.removeChild(backdrop);
     };
 
     const salvarAlteracoes = async () => {

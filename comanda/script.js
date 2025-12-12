@@ -53,13 +53,14 @@ async function listDeComandas() {
 
         const removeBtn = li.querySelector('.remove_comanda');
         removeBtn.addEventListener('click', async () => {
-            const removeResponse = await fetch(`https://localhost:7004/api/Comanda/${element.id}`, {
-                method: 'DELETE',
-                headers: headers
-            });
-            if (removeResponse.ok) {
-
-                li.remove();
+            if (confirm("Tem certeza que deseja excluir esta comanda?")) {
+                const removeResponse = await fetch(`https://localhost:7004/api/Comanda/${element.id}`, {
+                    method: 'DELETE',
+                    headers: headers
+                });
+                if (removeResponse.ok) {
+                    li.remove();
+                }
             }
         });
     });

@@ -16,8 +16,6 @@ async function listarCardapio() {
     const respsta = await fetch("https://localhost:7004/api/CardapioItem", {
         headers: heders
     })
-    // const cardapio = list
-
 
     const cardapio = await respsta.json()
     console.log(cardapio)
@@ -46,74 +44,101 @@ async function listarCardapio() {
         const vermaisBtn = li.querySelector('.cardapio_vermais');
         vermaisBtn.addEventListener('click', () => {
             openModalDesc(element);
-        }
-        );
-
+        });
 
         ul.appendChild(li)
 
-
         const remuve = document.getElementById(`${element.id}-remuve`)
         remuve.addEventListener('click', async (event) => {
+
+            // 🔥 ADIÇÃO: Confirmação antes de excluir
+            const confirmar = confirm("Tem certeza que deseja excluir este item?");
+            if (!confirmar) return;
+
             const cardapioId = element.id
             console.log(cardapioId)
             await fetch(`https://localhost:7004/api/CardapioItem/${cardapioId}`, {
                 method: "DELETE",
                 headers: heders,
-
             })
             ul.removeChild(li)
-
         })
     })
-
 }
 listarCardapio();
 
-// openModalDesc()
 function openNovoCardapio() {
-    const modal_Novocardarpio = document.querySelector(".modal")
+    // Criar o backdrop escuro
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('modal-backdrop');
+    backdrop.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75); 
+        z-index: 999; 
+    `;
+    document.body.appendChild(backdrop);
+
+    const modal_Novocardarpio = document.querySelector(".modal");
     modal_Novocardarpio.classList.add('modal_novocardapio');
-    modal_Novocardarpio.style.display = 'block';
+    modal_Novocardarpio.style.cssText += `
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000; 
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.75);
+    `;
     modal_Novocardarpio.innerHTML = `
     <div class="modal_Novo_cardapio">
         <span class="modal_fechar">&times;</span>
+        <label for="_description">Descrição:</label>
         <input type="text" id="_description" placeholder="Descrição">
+        <label for="_Imagem">Imagem URL:</label>
         <input type="text" id="_Imagem" placeholder="Imagem URL" >
+        <label for="_preco">Preço:</label>
         <input type="number" id="_preco" placeholder="Preço" >
+        <label for="_titulo">Titulo:</label>
         <input type="text" id="_titulo"  placeholder="Titulo" >
+
         <label for= "_Pussui_preparo">Possui Preparo </label>
         <input type="checkbox" id="_Pussui_preparo">
 
-        <div class = tipos_lanches>
+        <div class="tipos_lanches">
         <input type="radio" id="tipo_lanche" name="tipo" value="Lanche">
         <label for="tipo_lanche">Lanche</label>
         <input type="radio" id="tipo_pratos" name="tipo" value="Pratos">
         <label for="tipo_pratos">Pratos</label>
         <input type="radio" id="tipo_bebidas" name="tipo" value="Bebidas">
         <label for="tipo_bebidas">Bebidas</label>
-
         </div>
         <button class="modal_salvar">Salvar</button>
     </div>
     `;
-    const fechar = document.querySelector(".modal_fechar")
+
+    const fechar = document.querySelector(".modal_fechar");
     fechar.addEventListener('click', () => {
         modal_Novocardarpio.style.display = 'none';
+        document.body.removeChild(backdrop);
     });
 
-    const Salvar = document.querySelector(".modal_salvar")
+    const Salvar = document.querySelector(".modal_salvar");
     Salvar.addEventListener("click", async (event) => {
-        let tipo = 0
+        let tipo = 0;
         if (document.getElementById("tipo_lanche").checked) {
-            tipo = 1
+            tipo = 1;
         } else if (document.getElementById("tipo_pratos").checked) {
-            tipo = 3
+            tipo = 3;
         } else if (document.getElementById("tipo_bebidas").checked) {
-            tipo = 2
+            tipo = 2;
         }
         const producto_novo = {
-
             titulo: document.querySelector("#_titulo").value,
             descricao: document.querySelector("#_description").value,
             imagem: document.querySelector("#_Imagem").value,
@@ -121,9 +146,7 @@ function openNovoCardapio() {
             possuiPreparo: document.querySelector("#_Pussui_preparo").checked,
             tipo: tipo,
             categoriaCardapioId: tipo
-
-
-        }
+        };
         console.log(JSON.stringify(producto_novo));
         const salvarCardapio = await fetch(`${baseUrl}/api/CardapioItem`, {
             method: "POST",
@@ -131,20 +154,18 @@ function openNovoCardapio() {
             body: JSON.stringify(producto_novo)
         });
         console.log(salvarCardapio);
-        // window.location.reload()
-        modal_Novocardarpio.style.display = "none"
+        modal_Novocardarpio.style.display = "none";
+        document.body.removeChild(backdrop);
         window.location.reload();
-    })
-
+    });
 }
+
 function Modal_DeNavegacao() {
 
     const botondenavegar = document.createElement("button")
     botondenavegar.classList.add("botondenavegar")
     const ModalNavegacao = document.querySelector(".ModalNavegacao")
     ModalNavegacao.appendChild(botondenavegar)
-
-
 
     botondenavegar.innerHTML = `
 <button class="btn_navegar">
@@ -158,6 +179,7 @@ function Modal_DeNavegacao() {
     })
 }
 Modal_DeNavegacao();
+
 function Modalnavegar() {
     const ModalNavegacao = document.querySelector(".ModalNavegacao");
     const botao = document.querySelector("btnNavegar");
@@ -177,5 +199,6 @@ function Modalnavegar() {
         window.location.reload();
     });
 }
+
 
 
