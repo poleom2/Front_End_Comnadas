@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!selectMesa) return;
 
         try {
-            const response = await fetch(`${baseUrl}/api/Mesa`, { headers });
+            const response = await fetch(`https://localhost:7004/api/Mesa`, { headers });
             if (!response.ok) throw new Error();
             const mesas = await response.json();
 
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!selectItens) return;
 
         try {
-            const response = await fetch(`${baseUrl}/api/CardapioItem`, { headers });
+            const response = await fetch(`https://localhost:7004/api/CardapioItem`, { headers });
             if (!response.ok) throw new Error();
             const itens = await response.json();
 
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCancelar = $(".btn_cancelar");
     if (btnCancelar) {
         btnCancelar.addEventListener("click", () => {
-            window.location.href = "../comanda/index.html";
+            window.location.href = "/index.html";
         });
     }
 
@@ -100,8 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (linhas.length > 0) {
                     itens = linhas.map(l => {
                         const id = Number(l.querySelector(".itemSelectPage")?.value || 0);
-                        const quantidade = Number(l.querySelector(".itemQuantidadePage")?.value || 1);
-                        return { id, quantidade };
+                        return { id };
                     }).filter(x => x.id);
                 }
 
@@ -110,15 +109,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
+                const cardapioItemIds = itens.map(i => i.id);
+
                 const novaComanda = {
                     nomeCliente,
                     numeroMesa: Number(numeroMesa),
-                    itens
+                    cardapioItemIds
                 };
+
 
                 console.log("Enviando payload:", JSON.stringify(novaComanda));
 
-                const response = await fetch(`${baseUrl}/api/Comanda`, {
+
+                const response = await fetch(`https://localhost:7004/api/Comanda`, {
                     method: "POST",
                     headers,
                     body: JSON.stringify(novaComanda),
@@ -135,7 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 alert("Comanda cadastrada com sucesso!");
-                window.location.href = "../comanda/index.html";
+
+                window.location.href = "index.html";
 
             } catch (err) {
                 console.error("Erro inesperado ao salvar comanda:", err);

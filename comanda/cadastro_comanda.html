@@ -67,7 +67,7 @@
             if (!selectMesa) return;
 
             try {
-                const response = await fetch(`${baseUrl}/api/Mesa`, { headers });
+                const response = await fetch(`https://localhost:7004/api/Mesa`, { headers });
                 if (!response.ok) throw new Error();
                 const mesas = await response.json();
 
@@ -88,7 +88,7 @@
         // -------------------------------------
         async function carregarItens() {
             try {
-                const resp = await fetch(`${baseUrl}/api/CardapioItem`, { headers });
+                const resp = await fetch(`https://localhost:7004/api/CardapioItem`, { headers });
                 if (!resp.ok) throw new Error();
                 return await resp.json();
             } catch {
@@ -105,21 +105,19 @@
             linha.classList.add("item-linha");
 
             linha.innerHTML = `
-                <select class="itemSelect" required>
-                    <option value="">Selecione</option>
-                    ${itens.map(i => `<option value="${i.id}">${i.titulo}</option>`).join("")}
-                </select>
+            <select class="itemSelect" required>
+                <option value="">Selecione</option>
+                ${itens.map(i => `<option value="${i.id}">${i.titulo}</option>`).join("")}
+            </select>
 
-                <input type="number" class="itemQuantidade" min="1" value="1" required>
+            <button type="button" class="btn_remover_item">X</button>
+        `;
 
-                <button type="button" class="btn_remover_item">X</button>
-            `;
-
-            // remover item
             linha.querySelector(".btn_remover_item").onclick = () => linha.remove();
 
             return linha;
         }
+
 
         // -------------------------------------
         // 4. Iniciar página
@@ -155,21 +153,25 @@
                     return;
                 }
 
-                const itensSelecionados = [...document.querySelectorAll(".item-linha")].map(linha => ({
-                    idItem: linha.querySelector(".itemSelect").value,
-                    quantidade: linha.querySelector(".itemQuantidade").value
-                }));
+                const cardapioItemIds = [...document.querySelectorAll(".item-linha")]
+                    .map(linha => Number(linha.querySelector(".itemSelect").value))
+                    .filter(id => id > 0);
+
+                if (cardapioItemIds.length === 0) {
+                    alert("Selecione pelo menos um item.");
+                    return;
+                }
 
                 const payload = {
                     nomeCliente,
-                    numeroMesa,
-                    itens: itensSelecionados
+                    numeroMesa: Number(numeroMesa),
+                    cardapioItemIds
                 };
 
                 console.log("Enviando payload:", payload);
 
                 try {
-                    const resp = await fetch(`${baseUrl}/api/Comanda`, {
+                    const resp = await fetch(`https://localhost:7004/api/Comanda`, {
                         method: "POST",
                         headers,
                         body: JSON.stringify(payload)
@@ -178,11 +180,19 @@
                     if (!resp.ok) throw new Error();
 
                     alert("Comanda salva com sucesso!");
+                    window.location.href = "index.html";
                 } catch {
                     alert("Erro ao salvar comanda.");
                 }
-            };
+            }
         }
+        $(".btn_cancelar").onclick = () => {
+            if (confirm("Tem certeza que deseja cancelar o cadastro da comanda?")) {
+                window.location.href = "index.html";
+            }
+        };
+
+
 
         iniciar();
     </script>
