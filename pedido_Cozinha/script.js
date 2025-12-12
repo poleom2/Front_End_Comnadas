@@ -1,157 +1,104 @@
-
+console.log('pedido_Cozinha script loaded');
 const baseUrl = "https://localhost:7004";
-const headers = {
-    "Content-Type": "application/json"
-};
+const headers = { "Content-Type": "application/json" };
+
 async function Lista_PedidosCozinha() {
-    const response = await fetch(`${baseUrl}/api/PedidoCozinha`);
+    const response = await fetch(`${baseUrl}/api/PedidoCozinha`, { headers });
     const pedidosCozinha = await response.json();
 
-    console.log(pedidosCozinha)
-    const modal = document.querySelector(".modal");
-    const pedidosContainer = document.createElement("div");
-    pedidosContainer.classList.add("pedidos_container");
-    modal.appendChild(pedidosContainer);
-    let pedido = ""
+    const modal = document.querySelector('.modal');
+    if (!modal) return;
 
-    let pedido = ""
+    let container = modal.querySelector('.pedidos_container');
+    if (!container) {
+        container = document.createElement('div');
+        container.classList.add('pedidos_container');
+        modal.appendChild(container);
+    }
+    container.innerHTML = '';
 
-    pedidosCozinha.forEach(element => {
-        pedidosContainer.innerHTML += `
-        <div class="lista">
-        <h3>${element.numeroMesa}</h3>
-        <ul id="${element.id}">
-        
-        </ul>
-        <button class="remuve id="${element.id}">
+    const ul = document.createElement('ul');
+    ul.classList.add('pedidos_list');
+    container.appendChild(ul);
 
-            <i class="fa-solid fa-trash"></i>
-           
-       </button>
-        </div>
-        
-        
-        `;
+    pedidosCozinha.forEach(pedido => {
+        const li = document.createElement('li');
+        li.classList.add('pedido_item');
 
+        const header = document.createElement('div');
+        header.classList.add('pedido_header');
+        header.innerHTML = `<h3>Mesa: ${pedido.numeroMesa}</h3>`;
 
-        pedido = element
-        const ul = document.getElementById(element.id)
-        element.items.forEach(items => {
-            ul.innerHTML += `
-        
-       
-        pedido=element
-        const ul =document.getElementById(element.id)
-          element.items.forEach(items => {
-              ul.innerHTML += `
-                < li >
-                <h3>${items.titulo}</h3>
-                 <button class="vermais ">
-                 <button class="vermais ">
-                 <button class="vermais ">
-                 <button class="vermais ">
-                    <i class="fa-solid fa-list-ul"></i>
-                   
-               </button>
-                    
-                </li>
-            `;
+        const buttons = document.createElement('div');
+        buttons.classList.add('pedido_buttons');
+
+        // edit modal removed — no verMais button
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remuve';
+        removeBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        removeBtn.addEventListener('click', async () => {
+            const ok = confirm('Deseja realmente excluir este pedido?');
+            if (!ok) return;
+            const resp = await fetch(`${baseUrl}/api/PedidoCozinha/${pedido.id}`, { method: 'DELETE', headers });
+            if (resp.ok) {
+                li.remove();
+            } else {
+                alert('Erro ao excluir pedido');
+            }
         });
+
+        buttons.appendChild(removeBtn);
+        header.appendChild(buttons);
+        li.appendChild(header);
+
+        const itensUl = document.createElement('ul');
+        itensUl.classList.add('itens_pedido');
+        pedido.items.forEach(item => {
+            const itemLi = document.createElement('li');
+            itemLi.innerHTML = `<h4>${item.titulo}</h4>`;
+            itensUl.appendChild(itemLi);
+        });
+
+        li.appendChild(itensUl);
+        ul.appendChild(li);
     });
-     const button_delete = Number(document.getElementById(pedido.id))
- 
-
-    button_delete.addEventListener('click', async () => {
-    const element_delete = element.id;
-    console.log("Tentando excluir pedido:", element_delete);
-
-    const response = await fetch(`${ baseUrl } /api/PedidoCozinha / ${ element_delete } `, {
-        method: "DELETE",
-        headers: headers,
-    }
-);
-
-    if (response.ok) {
-        console.log("Pedido excluído com sucesso!");
-
-        // Remove o elemento do DOM (por exemplo, a linha da tabela ou card do pedido)
-        const pedidoElement = document.getElementById(pedido.id)
-        const numeromesa= document.querySelector(".lista")
-        if (pedidoElement) {
-           
-            numeromesa.remove();
-            
-            console.log("Elemento removido da interface.");
-         
-        }
-    } else {
-        console.error("Erro ao excluir pedido:", response.status);
-    }
-});
-
-    const vermaisbtn = document.querySelector(".vermais")
-    vermaisbtn.addEventListener('click', () => {
-          vermais(pedido)
-    })
-    
 }
+
 Lista_PedidosCozinha();
-async function vermais(element) {
-    const modal = document.querySelector(".modal_vermais")
-    modal.innerHTML = `
-                < label for= "comandaid" > ${ element.id }</label >
-        <label for="numeroMesa">${element.numeroMesa}</label>
-        <select>
-        
-        </select>
-            `
 
-
-
-
-}
-
-
-
-
-
-
+// edit modal functionality removed
 
 function Modal_DeNavegacao() {
-
-    const botondenavegar = document.createElement("button")
-    botondenavegar.classList.add("botondenavegar")
-    const ModalNavegacao = document.querySelector(".ModalNavegacao")
-
-    botondenavegar.innerHTML = `
-                < button class="btn_navegar" >
-                    <i class="fa-solid fa-bars"></i>
-</button >
-                `;
-    ModalNavegacao.appendChild(botondenavegar)
-
-    const btnNavegar = document.querySelector(".btn_navegar")
-    btnNavegar.addEventListener("click", () => {
-        Modalnavegar();
-    })
-}
-Modal_DeNavegacao();
-function Modalnavegar() {
-    const ModalNavegacao = document.querySelector(".ModalNavegacao");
-    const botao = document.querySelector("btnNavegar");
+    const ModalNavegacao = document.querySelector('.ModalNavegacao');
     ModalNavegacao.innerHTML = `
-                < nav class="navegacao_links" >
-    <button class="btn_fecharnavegar">&times;</button>
-    <a href="../Home/index.html">Home</a>
-    <a href="../Cardapio/index.html">Cadapio</a>
-    <a href="../Mesa/index.html">Mesa</a>
-    <a href="../comanda/index.html">Comanda</a>
-    </nav >
-                `;
-    const btnFecharNavegar = document.querySelector(".btn_fecharnavegar");
-    btnFecharNavegar.addEventListener("click", () => {
+        <button class="btn_navegar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    `;
 
-        ModalNavegacao.style.display = "none";
-        window.location.reload();
-    });
+    const btnNavegar = document.querySelector('.btn_navegar');
+    if (btnNavegar) btnNavegar.addEventListener('click', () => { Modalnavegar(); });
+}
+
+Modal_DeNavegacao();
+
+function Modalnavegar() {
+    const ModalNavegacao = document.querySelector('.ModalNavegacao');
+    ModalNavegacao.innerHTML = `
+    <nav class="navegacao_links">
+        <button class="btn_fecharnavegar">&times;</button>
+        <a href="../Home/index.html">Home</a>
+        <a href="../Cardapio/index.html">Cadapio</a>
+        <a href="../Mesa/index.html">Mesa</a>
+        <a href="../comanda/index.html">Comanda</a>
+    </nav>
+    `;
+    const btnFecharNavegar = document.querySelector('.btn_fecharnavegar');
+    if (btnFecharNavegar) {
+        btnFecharNavegar.addEventListener('click', () => {
+            ModalNavegacao.style.display = 'none';
+            window.location.reload();
+        });
+    }
 }
