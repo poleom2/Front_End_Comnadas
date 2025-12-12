@@ -1,24 +1,9 @@
-      * {
-          box-sizing: border-box;
-          padding: 0;
-          margin: 0;
-          background-color: #002349;
+* { box-sizing: border-box; padding: 0; margin: 0; }
+body { background: #002349; font-family: Arial, sans-serif; color: #f5f0e6; }
 
+.header-content { display: flex; align-items: center; justify-content: center; padding: 20px; }
 
-      }
-
-      .header-content {
-          display: flex;
-          align-items: row;
-          justify-content: center;
-          padding: 20px;
-      }
-
-      .logo {
-          width: 150px;
-          left: 20px;
-          position: absolute;
-      }
+.logo { width: 120px; position: absolute; left: 20px; }
 
       .title {
           display: flex;
@@ -78,33 +63,29 @@
           color: white;
       }
 
-      main {
-          display: flex;
-          flex-direction: column;
-          justify-content: column;
-          padding: 32px;
-          gap: 8px;
-          margin-top: 100px;
-      }
+main { display: flex; flex-direction: column; padding: 32px; gap: 16px; margin-top: 100px; }
 
-      .pedidos_container {
+    .pedidos_container { padding: 16px; display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 700px; margin: 0 auto; }
 
-          padding: 16px;
-          display: flex;
-          flex-direction: column;
-          gap: 32px;
-          width: 100%;
-          max-width: 500px;
-          margin: 0 auto;
-          color: bisque;
-          list-style: none;
+    .pedido_item { background: rgba(255,255,255,0.04); padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 8px; }
+    .pedido_header { display: flex; justify-content: space-between; align-items: center; }
+    .pedido_buttons button { margin-left: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+    .pedido_buttons button:hover { background: rgba(149,124,61,0.12); }
 
+    .itens_pedido { list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 6px; }
+    .itens_pedido h4 { font-size: 16px; color: #fff; }
 
-
-
-      }
-
-      .lista {
+    /* Modal (overlay) */
+    .modal { position: relative; }
+    .modal_vermais { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 9999; }
+    .modal_vermais .edit_pedido_form { background: #fff; color: #222; padding: 20px; border-radius: 8px; width: 320px; max-width: calc(100% - 40px); display: flex; flex-direction: column; gap: 12px; }
+    .modal_vermais label { display: flex; flex-direction: column; font-size: 14px; color: #333; }
+    .modal_vermais input, .modal_vermais select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    .modal_actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .modal_actions button { padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; }
+    .modal_actions button[type="submit"] { background: #957C3D; color: #fff; }
+    .modal_actions .btn_fechar_modal { background: #e0e0e0; }
+      .modal .lista {
           padding: 16px;
           display: flex;
           flex-direction: row;
