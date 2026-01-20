@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:7004"
+const baseUrl = "https://localhost:7004"
 const headers = {
     "content-type": "application/json; charset=utf-8"
 };
